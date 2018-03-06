@@ -8,8 +8,7 @@
 
 namespace App\Repos;
 
-
-interface CRUDInterface
+interface RepositoryInterface
 {
     public function all();
     public function paginate($perPage = 15);
@@ -18,5 +17,4 @@ interface CRUDInterface
     public function delete($id);
     public function find($id);
     public function findBy($field, $value, $id);
-
 }

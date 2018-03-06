@@ -23,8 +23,9 @@ class RepoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repos\CRUDInterface',
-            'App\Repos\CRUDRepository');
-
+        $this->app->bind(
+            'App\Repos\RepositoryInterface',
+            'App\Repos\CRUDRepository'
+        );
     }
 }
