@@ -167,15 +167,13 @@ return [
         /*
          * Package Service Providers...
          */
+        STS\Fixer\FixerServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        CoenMooij\DevpoolApi\Infrastructure\Providers\EventServiceProvider::class,
+        CoenMooij\DevpoolApi\Infrastructure\Providers\RouteServiceProvider::class,
 
     ],
 
