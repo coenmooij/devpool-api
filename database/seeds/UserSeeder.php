@@ -1,6 +1,7 @@
 <?php
 
 use CoenMooij\DevpoolApi\Authentication\AuthenticationServiceInterface;
+use CoenMooij\DevpoolApi\Authentication\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -17,6 +18,6 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
-        $this->authenticationService->register('coenmooij@gmail.com', 'test');
+        $this->authenticationService->register('coenmooij@gmail.com', 'test', 'Coen', 'Mooij', User::TYPE_ADMIN);
     }
 }
