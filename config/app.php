@@ -174,7 +174,7 @@ return [
          */
         CoenMooij\DevpoolApi\Infrastructure\Providers\EventServiceProvider::class,
         CoenMooij\DevpoolApi\Infrastructure\Providers\RouteServiceProvider::class,
-
+        CoenMooij\DevpoolApi\Infrastructure\Providers\DependencyInjectionServiceProvider::class,
     ],
 
     /*

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Authentication;
 
 use CoenMooij\DevpoolApi\Infrastructure\AbstractController;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,7 +37,7 @@ final class AuthenticationController extends AbstractController
         $this->authenticationService = $authenticationService;
     }
 
-    public function login(Request $request): Response
+    public function login(Request $request): JsonResponse
     {
         $this->validate($request, self::LOGIN_VALIDATION_RULES);
         $token = $this->authenticationService->login(
@@ -47,14 +48,14 @@ final class AuthenticationController extends AbstractController
         return self::createResponse(['message' => self::LOGIN_SUCCESS, 'token' => $token], Response::HTTP_CREATED);
     }
 
-    public function logout(Request $request): Response
+    public function logout(Request $request): JsonResponse
     {
         $this->authenticationService->logout($request->header('token', ''));
 
         return self::createResponse(['message' => self::LOGOUT_SUCCESS], Response::HTTP_OK);
     }
 
-    public function resetPassword(Request $request): Response
+    public function resetPassword(Request $request): JsonResponse
     {
         $this->validate($request, self::RESET_PASSWORD_VALIDATION_RULES);
 

@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
+    public function register(string $email, string $password): int
+    {
+        $user = new User();
+        $user->{User::EMAIL} = $email;
+        $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
+        $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
+        $user->saveOrFail();
+
+        return $user->{User::ID};
+    }
+
     public function login(string $email, string $password): string
     {
         try {
@@ -30,18 +41,6 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::TOKEN} = null;
         $user->{User::TOKEN_EXPIRES} = null;
         $user->saveOrFail();
-    }
-
-    public function register(string $email, string $password):string
-    {
-        $user = new User();
-        $user->{User::EMAIL} = $email;
-        $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
-        $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
-        $user->{User::TOKEN_EXPIRES} = Carbon::now()->addHour();
-        $user->saveOrFail();
-
-        return $user->{User::ID};
     }
 
     public function resetPassword(string $email): void
@@ -69,7 +68,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
         return uniqid($prefix, true);
     }
 
-    private function createToken(User $user)
+    private function createToken(User $user): string
     {
         $token = $user->{User::ID} . bin2hex(random_bytes(64));
         $user->{User::TOKEN} = $token;

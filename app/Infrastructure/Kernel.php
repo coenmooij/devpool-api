@@ -2,9 +2,10 @@
 
 namespace CoenMooij\DevpoolApi\Infrastructure;
 
-use App\Http\Middleware\TrimStrings;
-use App\Http\Middleware\TrustProxies;
 use CoenMooij\DevpoolApi\Authentication\AuthenticationMiddleware;
+use CoenMooij\DevpoolApi\Infrastructure\Middleware\Cors;
+use CoenMooij\DevpoolApi\Infrastructure\Middleware\TrimStrings;
+use CoenMooij\DevpoolApi\Infrastructure\Middleware\TrustProxies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
@@ -22,12 +23,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        AuthenticationMiddleware::class,
         CheckForMaintenanceMode::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
+        Cors::class,
     ];
 
     /**
