@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,11 +11,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('authentication')->group(
+Route::prefix('authentication')->namespace('CoenMooij\DevpoolApi\Authentication')->group(
     function () {
         Route::post('/login', 'AuthenticationController@login');
-        Route::post('/register', 'AuthenticationController@register');
-        Route::post('/registerClient', 'AuthenticationController@registerClient');
         Route::post('/resetPassword', 'AuthenticationController@resetPassword');
         Route::get('/logout', 'AuthenticationController@logout')->middleware('auth');
     }
@@ -25,5 +21,6 @@ Route::prefix('authentication')->group(
 
 Route::middleware('auth')->group(
     function () {
+        // TODO : Add routes
     }
 );
