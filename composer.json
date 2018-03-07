@@ -23,7 +23,7 @@
             "database/seeds"
         ],
         "psr-4": {
-            "CoenMooij\\DevpoolApi\\": "app/"
+            "CoenMooij\\DevpoolApi\\": "src/"
         }
     },
     "autoload-dev": {

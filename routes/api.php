@@ -14,6 +14,7 @@
 Route::prefix('authentication')->namespace('CoenMooij\DevpoolApi\Authentication')->group(
     function () {
         Route::post('/login', 'AuthenticationController@login');
+        Route::post('/register-developer', 'AuthenticationController@registerDeveloper');
         Route::post('/resetPassword', 'AuthenticationController@resetPassword');
         Route::get('/logout', 'AuthenticationController@logout')->middleware('auth');
     }
@@ -21,6 +22,11 @@ Route::prefix('authentication')->namespace('CoenMooij\DevpoolApi\Authentication'
 
 Route::middleware('auth')->group(
     function () {
-        // TODO : Add routes
+        Route::namespace('CoenMooij\DevpoolApi\Developer')->group(
+            function () {
+                Route::get('/developers', 'DeveloperController@getAll');
+                Route::get('/developers/{id}', 'DeveloperController@getOne');
+            }
+        );
     }
 );

@@ -14,15 +14,23 @@ final class AuthenticationController extends AbstractController
     private const LOGIN_SUCCESS = 'Login successful';
     private const LOGOUT_SUCCESS = 'Logout successful';
     private const PASSWORD_RESET = 'Password reset link was sent';
+    private const REGISTER_DEVELOPER_SUCCESS = 'Developer registration successful';
 
     private const EMAIL_KEY = 'email';
     private const PASSWORD_KEY = 'password';
+    private const FIRST_NAME_KEY = 'first_name';
+    private const LAST_NAME_KEY = 'last_name';
 
     private const LOGIN_VALIDATION_RULES = [
         self::EMAIL_KEY => 'required|email|max:255',
         self::PASSWORD_KEY => 'required|max:255',
     ];
-
+    private const REGISTER_VALIDATION_RULES = [
+        self::EMAIL_KEY => 'required|email|max:255',
+        self::PASSWORD_KEY => 'required|max:255',
+        self::FIRST_NAME_KEY => 'required|max:255',
+        self::LAST_NAME_KEY => 'required|max:255',
+    ];
     private const RESET_PASSWORD_VALIDATION_RULES = [
         self::EMAIL_KEY => 'required|email|max:255',
     ];
@@ -35,6 +43,24 @@ final class AuthenticationController extends AbstractController
     public function __construct(AuthenticationServiceInterface $authenticationService)
     {
         $this->authenticationService = $authenticationService;
+    }
+
+    public function registerDeveloper(Request $request): JsonResponse
+    {
+        $this->validate($request, self::REGISTER_VALIDATION_RULES);
+
+        $id = $this->authenticationService->register(
+            $request->request->get(self::EMAIL_KEY),
+            $request->request->get(self::PASSWORD_KEY),
+            $request->request->get(self::FIRST_NAME_KEY),
+            $request->request->get(self::LAST_NAME_KEY),
+            User::TYPE_DEVELOPER
+        );
+
+        return self::createResponse(
+            ['message' => self::REGISTER_DEVELOPER_SUCCESS, 'id' => $id],
+            Response::HTTP_CREATED
+        );
     }
 
     public function login(Request $request): JsonResponse

@@ -9,12 +9,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
-    public function register(string $email, string $password): int
+    public function register(string $email, string $password, string $firstName, string $lastName, int $userType): int
     {
         $user = new User();
         $user->{User::EMAIL} = $email;
         $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
         $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
+        $user->{User::FIRST_NAME} = $firstName;
+        $user->{User::LAST_NAME} = $lastName;
+        $user->{User::TYPE} = User::getType($userType);
         $user->saveOrFail();
 
         return $user->{User::ID};
@@ -37,7 +40,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
 
     public function logout(string $token): void
     {
-        $user = $this->authenticate($token);
+        $user = $this->findUser(User::TOKEN, $token);
         $user->{User::TOKEN} = null;
         $user->{User::TOKEN_EXPIRES} = null;
         $user->saveOrFail();
@@ -48,17 +51,12 @@ final class AuthenticationService implements AuthenticationServiceInterface
         // TODO: Implement resetPassword() method.
     }
 
-    public function authenticate($token): User
-    {
-        return $this->findUser(User::TOKEN, $token);
-    }
-
     private function hashPassword(string $password, string $salt): string
     {
         return password_hash($password . $salt . $this->getPepper(), PASSWORD_BCRYPT);
     }
 
-    private function passwordIsValid($password, $salt, $hash): bool
+    private function passwordIsValid(string $password, string $salt, string $hash): bool
     {
         return password_verify($password . $salt . $this->getPepper(), $hash);
     }

@@ -14,5 +14,4 @@ class DependencyInjectionServiceProvider extends ServiceProvider
     {
         $this->app->bind(AuthenticationServiceInterface::class, AuthenticationService::class);
     }
-
 }
