@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\Authentication;
 
+use CoenMooij\DevpoolApi\CRM\Comment;
+use CoenMooij\DevpoolApi\Profile\Link;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+final class User extends Model
 {
     public const ID = 'id';
     public const EMAIL = 'email';
@@ -46,5 +49,15 @@ class User extends Model
     private function getFullName(): string
     {
         return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
+    }
+
+    public function links(): HasMany
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

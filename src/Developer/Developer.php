@@ -6,10 +6,11 @@ namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Profile\Link;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Developer extends User
+final class Developer extends Model
 {
     public const ID = 'id';
     public const USER_ID = 'user_id';

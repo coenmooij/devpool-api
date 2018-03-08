@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer\Form;
 
 use CoenMooij\DevpoolApi\Developer\Developer;
-use CoenMooij\DevpoolApi\Developer\Question\Question;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
