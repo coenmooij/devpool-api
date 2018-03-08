@@ -8,7 +8,7 @@ use CoenMooij\DevpoolApi\Developer\Developer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Answer extends Model
+final class Answer extends Model
 {
     public const ID = 'id';
     public const DEVELOPER_ID = 'developer_id';
