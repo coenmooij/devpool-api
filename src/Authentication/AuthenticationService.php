@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Authentication;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -19,6 +22,12 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::LAST_NAME} = $lastName;
         $user->{User::TYPE} = User::getType($userType);
         $user->saveOrFail();
+
+        try {
+            Mail::to($email)->send(new DeveloperRegistrationCompleteMailer($user));
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
 
         return $user->{User::ID};
     }
