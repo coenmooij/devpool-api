@@ -12,15 +12,19 @@ use Illuminate\Support\Facades\Mail;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
-    public function register(string $email, string $password, string $firstName, string $lastName, int $userType): int
-    {
+    public function registerDeveloper(
+        string $email,
+        string $password,
+        string $firstName,
+        string $lastName
+    ): int {
         $user = new User();
         $user->{User::EMAIL} = $email;
         $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
         $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
         $user->{User::FIRST_NAME} = $firstName;
         $user->{User::LAST_NAME} = $lastName;
-        $user->{User::TYPE} = User::getType($userType);
+        $user->{User::TYPE} = User::TYPE_DEVELOPER;
         $user->saveOrFail();
 
         try {
@@ -57,7 +61,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
 
     public function resetPassword(string $email): void
     {
-        // TODO: Implement resetPassword() method.
+        Log::info('Password reset attempt for ' . $email);
     }
 
     private function hashPassword(string $password, string $salt): string

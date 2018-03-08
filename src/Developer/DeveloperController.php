@@ -18,12 +18,12 @@ class DeveloperController extends AbstractController
     public function getAll(): JsonResponse
     {
         $developerDataStub = [
-            $this->createDeveloperData('Kevin', 'Barasa', ['PHP', 'Javascript'], ['Laravel', 'Vue'],0),
-            $this->createDeveloperData('Vincent', 'Wijdeveld', ['C#', 'Java'], ['.NET', 'Spring'],1),
-            $this->createDeveloperData('Sebastiaan', 'Tan', ['Javascript'], ['React-native'],2),
-            $this->createDeveloperData('Coen', 'Mooij', ['PHP', 'Javascript'], ['Laravel'],3),
-            $this->createDeveloperData('Derk', 'van der Grijp', ['Objective-C', 'Python'], ['Django'],4),
-            $this->createDeveloperData('Abigail', 'Muruchi', ['Swift'], [],5),
+            $this->createDeveloperData('Kevin', 'Barasa', ['PHP', 'Javascript'], ['Laravel', 'Vue'], 0),
+            $this->createDeveloperData('Vincent', 'Wijdeveld', ['C#', 'Java'], ['.NET', 'Spring'], 1),
+            $this->createDeveloperData('Sebastiaan', 'Tan', ['Javascript'], ['React-native'], 2),
+            $this->createDeveloperData('Coen', 'Mooij', ['PHP', 'Javascript'], ['Laravel'], 3),
+            $this->createDeveloperData('Derk', 'van der Grijp', ['Objective-C', 'Python'], ['Django'], 4),
+            $this->createDeveloperData('Abigail', 'Muruchi', ['Swift'], [], 5),
         ];
 
         return self::createResponse($developerDataStub, Response::HTTP_OK);

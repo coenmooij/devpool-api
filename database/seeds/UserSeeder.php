@@ -18,6 +18,6 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
-        $this->authenticationService->register('coenmooij@gmail.com', 'test', 'Coen', 'Mooij', User::TYPE_ADMIN);
+        $this->authenticationService->registerDeveloper('coenmooij@gmail.com', 'test', 'Coen', 'Mooij', User::TYPE_ADMIN);
     }
 }
