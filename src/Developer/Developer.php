@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Developer\Link\Link;
+use CoenMooij\DevpoolApi\Profile\Link;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
