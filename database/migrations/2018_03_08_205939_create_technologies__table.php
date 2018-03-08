@@ -2,34 +2,28 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 final class CreateTechnologiesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('technologies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('type')->nullable();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->timestamps();
-        });
+        Schema::create(
+            'technologies',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('type');
+                $table->integer('parent_id')->unsigned()->nullable();
+                $table->timestamps();
+                $table->foreign('parent_id')->references('id')->on('technologies')->onDelete('cascade');
+            }
+        );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('technologies');
     }
