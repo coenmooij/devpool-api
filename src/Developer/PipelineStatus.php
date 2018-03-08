@@ -17,12 +17,12 @@ final class PipelineStatus extends IntEnum
     public const BLACKLIST = 'blacklist';
 
     protected const ALL = [
-        self::PROSPECT => 1,
-        self::PROFILE_INCOMPLETE => 2,
-        self::PROFILE_REVIEW => 3,
-        self::CASPAR => 4,
-        self::ICEBOX => 5,
-        self::BLACKLIST => 6,
-        self::POTENTIAL_CASPAR => 7,
+        self::PROSPECT => 0,
+        self::PROFILE_INCOMPLETE => 1,
+        self::PROFILE_REVIEW => 2,
+        self::CASPAR => 3,
+        self::ICEBOX => 4,
+        self::BLACKLIST => 5,
+        self::POTENTIAL_CASPAR => 6,
     ];
 }
