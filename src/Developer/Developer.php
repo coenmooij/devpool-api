@@ -16,7 +16,7 @@ final class Developer extends Model
 {
     public const ID = 'id';
     public const USER_ID = 'user_id';
-    public const ROLE = 'role';
+    public const SPECIALITY = 'role';
     public const SENIORITY = 'seniority';
     public const PIPELINE_STATUS = 'pipeline_status';
     public const COUNTRY = 'country';
