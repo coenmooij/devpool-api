@@ -11,8 +11,8 @@ final class PipelineStatus extends IntEnum
     public const PROSPECT = 'prospect';
     public const PROFILE_INCOMPLETE = 'profile incomplete';
     public const PROFILE_REVIEW = 'profile review';
+    public const TECHNICAL_INTERVIEW = 'technical interview';
     public const CASPAR = 'caspar';
-    public const POTENTIAL_CASPAR = 'potential';
     public const ICEBOX = 'icebox';
     public const BLACKLIST = 'blacklist';
 
@@ -20,9 +20,10 @@ final class PipelineStatus extends IntEnum
         self::PROSPECT => 0,
         self::PROFILE_INCOMPLETE => 1,
         self::PROFILE_REVIEW => 2,
-        self::CASPAR => 3,
-        self::ICEBOX => 4,
-        self::BLACKLIST => 5,
-        self::POTENTIAL_CASPAR => 6,
+        self::TECHNICAL_INTERVIEW => 3,
+        self::CASPAR => 4,
+        self::ICEBOX => 5,
+        self::BLACKLIST => 6,
+
     ];
 }
