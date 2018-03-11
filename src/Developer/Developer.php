@@ -5,17 +5,11 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Profile\Link;
 use CoenMooij\DevpoolApi\Technology\Technology;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-final class Developer extends Model
+final class Developer extends User
 {
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
     public const SPECIALITY = 'role';
     public const SENIORITY = 'seniority';
     public const PIPELINE_STATUS = 'pipeline_status';
@@ -23,19 +17,30 @@ final class Developer extends Model
     public const PHONE_NUMBER = 'phone';
     public const BIRTH_DATE = 'birth_date';
     public const PRIORITY = 'priority';
+    private const HIDDEN = [];
 
-    public function user(): HasOne
-    {
-        return $this->hasOne(User::class);
-    }
-
-    public function links(): HasMany
-    {
-        return $this->hasMany(Link::class);
-    }
+    protected $table = 'users';
 
     public function technologies(): BelongsToMany
     {
         return $this->belongsToMany(Technology::class);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHidden(): array
+    {
+        return array_merge(parent::getHidden(), self::HIDDEN);
+    }
+
+    public static function boot(): void
+    {
+        static::addGlobalScope(
+            'isDeveloper',
+            function ($query) {
+                return $query->join('developers', 'users.id', '=', 'developers.id');
+            }
+        );
     }
 }

@@ -9,7 +9,7 @@ use CoenMooij\DevpoolApi\Profile\Link;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class User extends Model
+class User extends Model
 {
     public const ID = 'id';
     public const EMAIL = 'email';
@@ -23,18 +23,25 @@ final class User extends Model
     public const TOKEN = 'token';
     public const TOKEN_EXPIRES = 'token_expires';
 
+    public const NAME_KEY = 'name';
+
     public const TYPE_ADMIN = 0;
     public const TYPE_BACKOFFICE = 1;
     public const TYPE_DEVELOPER = 2;
     public const TYPE_CLIENT = 3;
 
     public const TYPES = [
-        self::TYPE_ADMIN,
-        self::TYPE_BACKOFFICE,
-        self::TYPE_DEVELOPER,
-        self::TYPE_CLIENT,
+        self::TYPE_ADMIN => 'admin',
+        self::TYPE_BACKOFFICE => 'backoffice',
+        self::TYPE_DEVELOPER => 'developer',
+        self::TYPE_CLIENT => 'client',
     ];
-    const DEFAULT_TYPE = self::TYPE_DEVELOPER;
+
+    public $hidden = [
+        'password',
+        'salt',
+    ];
+    public const DEFAULT_TYPE = self::TYPE_DEVELOPER;
 
     public static function getType(int $userType): int
     {
@@ -53,11 +60,11 @@ final class User extends Model
 
     public function links(): HasMany
     {
-        return $this->hasMany(Link::class);
+        return $this->hasMany(Link::class, 'user_id');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'user_id');
     }
 }
