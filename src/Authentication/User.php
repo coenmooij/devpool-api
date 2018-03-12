@@ -22,38 +22,36 @@ class User extends Model
     public const TYPE = 'type';
     public const TOKEN = 'token';
     public const TOKEN_EXPIRES = 'token_expires';
+    public const DISPLAY_NAME = 'display_name';
+    public const FULL_NAME = 'full_name';
 
     public const NAME_KEY = 'name';
 
-    public const TYPE_ADMIN = 0;
-    public const TYPE_BACKOFFICE = 1;
-    public const TYPE_DEVELOPER = 2;
-    public const TYPE_CLIENT = 3;
+    public const DEFAULT_TYPE = UserType::DEVELOPER;
 
-    public const TYPES = [
-        self::TYPE_ADMIN => 'admin',
-        self::TYPE_BACKOFFICE => 'backoffice',
-        self::TYPE_DEVELOPER => 'developer',
-        self::TYPE_CLIENT => 'client',
+    protected $guarded = [
+        self::ID,
     ];
-
-    public const DEFAULT_TYPE = self::TYPE_DEVELOPER;
 
     protected $hidden = [
-        'password',
-        'salt',
-        'token',
+        self::PASSWORD,
+        self::SALT,
+        self::TOKEN,
     ];
-
-    public static function getType(int $userType): int
-    {
-        return in_array($userType, self::TYPES, true) ? $userType : self::DEFAULT_TYPE;
-    }
 
     public function toArray()
     {
-        // unset names, put display name
-        // put real types
+        $array = parent::toArray();
+        $array[self::TYPE] = $this->getType();
+        $array[self::DISPLAY_NAME] = $this->getDisplayName();
+        $array[self::FULL_NAME] = $this->getFullName();
+
+        return $array;
+    }
+
+    public function getType(): string
+    {
+        return UserType::getName($this->{self::TYPE});
     }
 
     public function getDisplayName(): string

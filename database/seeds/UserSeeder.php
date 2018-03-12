@@ -2,46 +2,18 @@
 
 use CoenMooij\DevpoolApi\Authentication\AuthenticationServiceInterface;
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Developer\Developer;
-use CoenMooij\DevpoolApi\Profile\Link;
-use CoenMooij\DevpoolApi\Profile\LinkType;
+use CoenMooij\DevpoolApi\Authentication\UserType;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
     private const DEFAULT_PASSWORD = '123456';
-    private const DEVELOPERS = [
-        ['Coen', 'Mooij', 'coenmooij@gmail.com'],
-        ['Kevin', 'Barasa', 'kevin.barasa001@gmail.com'],
-        ['Coen', 'Mooij', 'coen.mooij@casparcoding.com'],
-        ['Kevin', 'Barasa', 'kevin.barasa@casparcoding.com'],
-    ];
-
-    private const DEVELOPERS_TECHNOLOGIES = [
-        1 => [47, 81, 49, 85],
-        2 => [48, 82],
-        3 => [50, 80],
-        4 => [48, 79, 78],
-    ];
-    private const LINKS = [
-        1 => [
-            [Link::TYPE => LinkType::GITHUB, Link::VALUE => 'coenmooij'],
-            [Link::TYPE => LinkType::LINKEDIN, Link::VALUE => 'coenmooij'],
-            [Link::TYPE => LinkType::WEBSITE, Link::VALUE => 'https://coenmooij.nl'],
-            [Link::TYPE => LinkType::AVATAR, Link::VALUE => 'https://pbs.twimg.com/profile_images/884149785883791361/l-Cj6OUq_400x400.jpg'],
-        ], 2 => [
-            [Link::TYPE => LinkType::GITLAB, Link::VALUE => 'bqevin'],
-            [Link::TYPE => LinkType::TWITTER, Link::VALUE => 'kev_barasa'],
-            [Link::TYPE => LinkType::GITHUB, Link::VALUE => 'bqevin'],
-            [Link::TYPE => LinkType::BITBUCKET, Link::VALUE => 'bqevin'],
-            [Link::TYPE => LinkType::AVATAR, Link::VALUE => 'https://pbs.twimg.com/profile_images/786965786405502976/9RjdcD-b_400x400.jpg'],
-        ], 3 => [
-            [Link::TYPE => LinkType::FACEBOOK, Link::VALUE => 'coenmooij'],
-            [Link::TYPE => LinkType::TWITTER, Link::VALUE => 'coenmooij'],
-            [Link::TYPE => LinkType::INSTAGRAM, Link::VALUE => 'coenmooij'],
-        ], 4 => [
-            [Link::TYPE => LinkType::AVATAR, Link::VALUE => 'https://static1.squarespace.com/static/5a243755a8b2b03bb2dbdce0/t/5a8e9229ec212d49de3d84f0/1519293045638/IMG_0323+_k.png?format=500w'],
-        ],
+    private const USERS = [
+        ['Sally', 'Sellers', 'sales@casparcoding.com', UserType::BACKOFFICE],
+        ['Clayant', 'von Klientface', 'client@casparcoding.com', UserType::CLIENT],
+        ['Ed', 'Min', 'admin@casparcoding.com', UserType::ADMIN],
+        ['Inta', 'Viwa', 'interview@casparcoding.com', UserType::BACKOFFICE],
+        ['Koda', 'Viwa', 'code@casparcoding.com', UserType::BACKOFFICE],
     ];
 
     /**
@@ -56,66 +28,25 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
-        $this->registerDevelopers(self::DEVELOPERS);
-        $this->addDevelopersTechnologies(self::DEVELOPERS_TECHNOLOGIES);
-        $this->addLinksForDevelopers(self::LINKS);
+        $this->registerUsers(self::USERS);
     }
 
-    private function registerDevelopers($developers): void
+    private function registerUsers($users): void
     {
-        foreach ($developers as $developer) {
-            $this->registerDeveloper(...$developer);
+        foreach ($users as $user) {
+            $this->registerUser(...$user);
         }
     }
 
-    private function registerDeveloper(string $firstName, string $lastName, string $email): void
+    private function registerUser(string $firstName, string $lastName, string $email, string $userType): void
     {
         if ($this->getUserByEmail($email) === null) {
-            $this->authenticationService->registerDeveloper($email, self::DEFAULT_PASSWORD, $firstName, $lastName);
+            $this->authenticationService->registerUser($email, self::DEFAULT_PASSWORD, $firstName, $lastName, $userType);
         }
     }
 
     private function getUserByEmail(string $email): ?User
     {
         return User::where(User::EMAIL, $email)->first();
-    }
-
-    private function addDevelopersTechnologies(array $developers_technologies): void
-    {
-        foreach ($developers_technologies as $developer => $technologies) {
-            $this->addTechnologies($developer, $technologies);
-        }
-    }
-
-    private function addTechnologies(int $developerId, array $technologies): void
-    {
-        /**
-         * @var Developer $developer
-         */
-        $developer = Developer::find($developerId);
-        foreach ($technologies as $technologyId) {
-            if(count($developer->technologies()) === 0){
-                $developer->technologies()->attach($technologyId);
-            }
-        }
-        $developer->save();
-    }
-
-    private function addLinksForDevelopers($developers_links): void
-    {
-        foreach ($developers_links as $developer => $links) {
-            $this->addLinksForDeveloper($developer, $links);
-        }
-    }
-
-    private function addLinksForDeveloper($developerId, $linkData): void
-    {
-        foreach ($linkData as $data) {
-            $link = new Link();
-            $link->{Link::USER_ID} = $developerId;
-            $link->{Link::TYPE} = LinkType::get($data[Link::TYPE]);
-            $link->{Link::VALUE} = $data[Link::VALUE];
-            $link->save();
-        }
     }
 }

@@ -8,6 +8,7 @@ final class CreateDeveloperTechnologyTable extends Migration
 {
     public function up(): void
     {
+        $this->down();
         Schema::create(
             'developer_technology',
             function (Blueprint $table) {

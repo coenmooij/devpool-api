@@ -49,7 +49,7 @@ final class AuthenticationController extends AbstractController
     {
         $this->validate($request, self::REGISTER_VALIDATION_RULES);
 
-        $id = $this->authenticationService->registerDeveloper(
+        $id = $this->authenticationService->registerUser(
             $request->request->get(self::EMAIL_KEY),
             $request->request->get(self::PASSWORD_KEY),
             $request->request->get(self::FIRST_NAME_KEY),

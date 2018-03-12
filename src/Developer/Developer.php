@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 final class Developer extends User
 {
+    public const ID = 'id';
     public const SPECIALITY = 'role';
     public const SENIORITY = 'seniority';
     public const PIPELINE_STATUS = 'pipeline_status';
@@ -21,11 +22,16 @@ final class Developer extends User
         'pivot',
     ];
 
-    protected $table = 'users';
+    protected $guarded = [];
 
     public function technologies(): BelongsToMany
     {
         return $this->belongsToMany(Technology::class);
+    }
+
+    public function toArray(): array
+    {
+        return parent::toArray();
     }
 
     /**
@@ -41,7 +47,7 @@ final class Developer extends User
         static::addGlobalScope(
             'isDeveloper',
             function ($query) {
-                return $query->join('developers', 'users.id', '=', 'developers.id');
+                return $query->join('users', 'developers.id', '=', 'users.id');
             }
         );
     }

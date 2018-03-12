@@ -14,7 +14,7 @@ final class CreateTechnologiesTable extends Migration
             'technologies',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('name');
+                $table->string('name')->unique();
                 $table->string('type');
                 $table->integer('parent_id')->unsigned()->nullable();
                 $table->timestamps();

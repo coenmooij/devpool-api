@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Authentication;
 
 use Carbon\Carbon;
-use CoenMooij\DevpoolApi\Developer\Developer;
 use CoenMooij\DevpoolApi\Developer\DeveloperServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -23,27 +22,24 @@ final class AuthenticationService implements AuthenticationServiceInterface
     {
         $this->developerService = $developerService;
     }
-    public function registerDeveloper(
+
+    public function registerUser(
         string $email,
         string $password,
         string $firstName,
-        string $lastName
+        string $lastName,
+        string $userType
     ): int {
-        $user = new User();
-        $user->{User::EMAIL} = $email;
-        $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
-        $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
-        $user->{User::FIRST_NAME} = $firstName;
-        $user->{User::LAST_NAME} = $lastName;
-        $user->{User::TYPE} = User::TYPE_DEVELOPER;
-        $user->saveOrFail();
+        $user = $this->register($email, $password, $firstName, $lastName, $userType);
 
-        $this->developerService->createDeveloperFromUser($user);
+        if ($userType === UserType::DEVELOPER) {
+            $this->developerService->createDeveloperFromUser($user);
 
-        try {
-            Mail::to($email)->send(new DeveloperRegistrationCompleteMailer($user));
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
+            try {
+                Mail::to($email)->send(new DeveloperRegistrationCompleteMailer($user));
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
         }
 
         return $user->{User::ID};
@@ -75,6 +71,25 @@ final class AuthenticationService implements AuthenticationServiceInterface
     public function resetPassword(string $email): void
     {
         Log::info('Password reset attempt for ' . $email);
+    }
+
+    private function register(
+        string $email,
+        string $password,
+        string $firstName,
+        string $lastName,
+        string $userType
+    ): User {
+        $user = new User();
+        $user->{User::EMAIL} = $email;
+        $user->{User::SALT} = $this->createSalt($user->{User::EMAIL});
+        $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
+        $user->{User::FIRST_NAME} = $firstName;
+        $user->{User::LAST_NAME} = $lastName;
+        $user->{User::TYPE} = UserType::get($userType);
+        $user->saveOrFail();
+
+        return $user;
     }
 
     private function hashPassword(string $password, string $salt): string
