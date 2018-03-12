@@ -19,7 +19,7 @@ final class Developer extends User
     public const PRIORITY = 'priority';
     private const HIDDEN = [];
 
-    protected $table = 'users';
+    protected $table = 'developers';
 
     public function technologies(): BelongsToMany
     {

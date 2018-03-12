@@ -27,7 +27,8 @@ final class AuthenticationService implements AuthenticationServiceInterface
         string $email,
         string $password,
         string $firstName,
-        string $lastName
+        string $lastName,
+        int $type
     ): int {
         $user = new User();
         $user->{User::EMAIL} = $email;
@@ -35,7 +36,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
         $user->{User::FIRST_NAME} = $firstName;
         $user->{User::LAST_NAME} = $lastName;
-        $user->{User::TYPE} = User::TYPE_DEVELOPER;
+        $user->{User::TYPE} = User::getType($type);
         $user->saveOrFail();
 
         $this->developerService->createDeveloperFromUser($user);

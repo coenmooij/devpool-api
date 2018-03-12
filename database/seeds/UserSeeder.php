@@ -8,10 +8,10 @@ class UserSeeder extends Seeder
 {
     private const DEFAULT_PASSWORD = '123456';
     private const DEVELOPERS = [
-        ['Coen', 'Mooij', 'coenmooij@gmail.com'],
-        ['Kevin', 'Barasa', 'kevin.barasa001@gmail.com'],
-        ['Coen', 'Mooij', 'coen.mooij@casparcoding.com'],
-        ['Kevin', 'Barasa', 'kevin.barasa@casparcoding.com'],
+        ['Coen', 'Mooij', 'coenmooij@gmail.com',2],
+        ['Kevin', 'Barasa', 'kevin.barasa001@gmail.com',2],
+        ['Coen', 'Mooij', 'coen.mooij@casparcoding.com',2],
+        ['Kevin', 'Barasa', 'kevin.barasa@casparcoding.com',2],
     ];
     /**
      * @var AuthenticationServiceInterface
@@ -35,10 +35,10 @@ class UserSeeder extends Seeder
         }
     }
 
-    private function registerDeveloper(string $firstName, string $lastName, string $email): void
+    private function registerDeveloper(string $firstName, string $lastName, string $email, int $type): void
     {
         if ($this->getUserByEmail($email) === null) {
-            $this->authenticationService->registerDeveloper($email, self::DEFAULT_PASSWORD, $firstName, $lastName);
+            $this->authenticationService->registerDeveloper($email, self::DEFAULT_PASSWORD, $firstName, $lastName, $type);
         }
     }
 

@@ -37,10 +37,24 @@ class User extends Model
         self::TYPE_CLIENT => 'client',
     ];
 
+    protected $fillable = [
+        self::EMAIL,
+        self::PASSWORD,
+        self::TYPE,
+        self::SALT,
+        self::FIRST_NAME,
+        self::LAST_NAME,
+        self::NICKNAME,
+        self::SHOW_NICKNAME,
+        self::TOKEN,
+        self::TOKEN_EXPIRES,
+    ];
+
     public $hidden = [
         'password',
         'salt',
     ];
+
     public const DEFAULT_TYPE = self::TYPE_DEVELOPER;
 
     public static function getType(int $userType): int
