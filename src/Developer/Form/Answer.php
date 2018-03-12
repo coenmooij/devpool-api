@@ -15,6 +15,13 @@ final class Answer extends Model
     public const QUESTION_ID = 'question_id';
     public const VALUE = 'value';
 
+    protected $hidden = [
+        'id',
+        'developer_id',
+        'question_id',
+        'updated_at',
+    ];
+
     public function developer(): BelongsTo
     {
         return $this->belongsTo(Developer::class);

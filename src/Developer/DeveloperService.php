@@ -21,7 +21,16 @@ final class DeveloperService implements DeveloperServiceInterface
     public function getOne(int $id): Developer
     {
         // Todo: Check permissions
-        return Developer::with(['technologies', 'links', 'comments', 'answers'])->find($id);
+        return Developer::with(
+            [
+                'technologies',
+                'links',
+                'comments',
+                'answers',
+                'answers.question',
+                'answers.question.form'
+            ]
+        )->find($id);
     }
 
     public function createDeveloperFromUser(User $user): Developer

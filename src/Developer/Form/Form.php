@@ -13,6 +13,11 @@ final class Form extends Model
     public const NAME = 'name';
     public const DESCRIPTION = 'description';
 
+    protected $hidden = [
+        'id',
+        'updated_at',
+    ];
+
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);

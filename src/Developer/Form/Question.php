@@ -15,6 +15,12 @@ final class Question extends Model
     public const ORDER = 'order';
     public const VALUE = 'value';
 
+    protected $hidden = [
+        'id',
+        'form_id',
+        'updated_at',
+    ];
+
     public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
