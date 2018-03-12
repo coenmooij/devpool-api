@@ -53,7 +53,8 @@ final class AuthenticationController extends AbstractController
             $request->request->get(self::EMAIL_KEY),
             $request->request->get(self::PASSWORD_KEY),
             $request->request->get(self::FIRST_NAME_KEY),
-            $request->request->get(self::LAST_NAME_KEY)
+            $request->request->get(self::LAST_NAME_KEY),
+            UserType::DEVELOPER
         );
 
         return self::createResponse(
