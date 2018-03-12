@@ -45,11 +45,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate",
-            "php artisan migrate:refresh --force"
+            "php artisan migrate"
         ],
         "post-install-cmd": [
             "composer dump-autoload -o",
-            "php artisan migrate --force"
+            "php artisan migrate:fresh --force"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
