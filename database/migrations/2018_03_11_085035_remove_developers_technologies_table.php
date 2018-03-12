@@ -1,14 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class CreateDevelopersTechnologiesTable extends Migration
+final class RemoveDevelopersTechnologiesTable extends Migration
 {
     public function up(): void
+    {
+        Schema::dropIfExists('developers_technologies');
+    }
+
+    public function down(): void
     {
         Schema::create(
             'developers_technologies',
@@ -22,10 +25,5 @@ final class CreateDevelopersTechnologiesTable extends Migration
                 $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
             }
         );
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('developers_technologies');
     }
 }

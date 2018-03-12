@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Authentication;
 
 use Carbon\Carbon;
+use CoenMooij\DevpoolApi\Developer\Developer;
+use CoenMooij\DevpoolApi\Developer\DeveloperServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +14,15 @@ use Illuminate\Support\Facades\Mail;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
+    /**
+     * @var DeveloperServiceInterface
+     */
+    private $developerService;
+
+    public function __construct(DeveloperServiceInterface $developerService)
+    {
+        $this->developerService = $developerService;
+    }
     public function registerDeveloper(
         string $email,
         string $password,
@@ -26,6 +37,8 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::LAST_NAME} = $lastName;
         $user->{User::TYPE} = User::TYPE_DEVELOPER;
         $user->saveOrFail();
+
+        $this->developerService->createDeveloperFromUser($user);
 
         try {
             Mail::to($email)->send(new DeveloperRegistrationCompleteMailer($user));
