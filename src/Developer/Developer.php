@@ -17,7 +17,9 @@ final class Developer extends User
     public const PHONE_NUMBER = 'phone';
     public const BIRTH_DATE = 'birth_date';
     public const PRIORITY = 'priority';
-    private const HIDDEN = [];
+    private const HIDDEN = [
+        'pivot',
+    ];
 
     protected $table = 'users';
 
