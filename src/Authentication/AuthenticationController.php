@@ -20,16 +20,18 @@ final class AuthenticationController extends AbstractController
     private const PASSWORD_KEY = 'password';
     private const FIRST_NAME_KEY = 'first_name';
     private const LAST_NAME_KEY = 'last_name';
+    private const TYPE_KEY = 'type';
 
     private const LOGIN_VALIDATION_RULES = [
         self::EMAIL_KEY => 'required|email|max:255',
         self::PASSWORD_KEY => 'required|max:255',
     ];
     private const REGISTER_VALIDATION_RULES = [
-        self::EMAIL_KEY => 'required|email|max:255',
+        self::EMAIL_KEY => 'unique:users|required|email|max:255',
         self::PASSWORD_KEY => 'required|max:255',
         self::FIRST_NAME_KEY => 'required|max:255',
         self::LAST_NAME_KEY => 'required|max:255',
+        self::TYPE_KEY => 'required|max:1',
     ];
     private const RESET_PASSWORD_VALIDATION_RULES = [
         self::EMAIL_KEY => 'required|email|max:255',
@@ -53,7 +55,8 @@ final class AuthenticationController extends AbstractController
             $request->request->get(self::EMAIL_KEY),
             $request->request->get(self::PASSWORD_KEY),
             $request->request->get(self::FIRST_NAME_KEY),
-            $request->request->get(self::LAST_NAME_KEY)
+            $request->request->get(self::LAST_NAME_KEY),
+            $request->request->get(self::TYPE_KEY)
         );
 
         return self::createResponse(

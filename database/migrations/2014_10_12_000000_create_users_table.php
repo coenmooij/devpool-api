@@ -12,7 +12,7 @@ final class CreateUsersTable extends Migration
             'users',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('email')->unique();
+                $table->string('email');
                 $table->string('password', 60);
                 $table->integer('type')->unsigned();
                 $table->string('salt')->unique();
