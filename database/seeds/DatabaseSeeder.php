@@ -9,5 +9,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TechnologySeeder::class);
         $this->call(DeveloperSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(FormSeeder::class);
     }
 }
