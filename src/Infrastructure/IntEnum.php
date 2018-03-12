@@ -14,12 +14,22 @@ abstract class IntEnum
      */
     protected const ALL = [];
 
-    public function get($key): int
+    public static function get(string $key): int
     {
-        if (!isset(self::ALL[$key])) {
+        if (!isset(static::ALL[$key])) {
             throw new LogicException();
         }
 
-        return self::ALL[$key];
+        return static::ALL[$key];
+    }
+
+    public static function getName(int $key): string
+    {
+        $allNames = array_flip(static::ALL);
+        if (!isset($allNames[$key])) {
+            throw new LogicException();
+        }
+
+        return $allNames[$key];
     }
 }

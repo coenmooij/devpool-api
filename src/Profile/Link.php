@@ -15,6 +15,23 @@ final class Link extends Model
     public const TYPE = 'type';
     public const VALUE = 'value';
 
+    protected $hidden = [
+        'user_id',
+    ];
+
+    public function toArray(): array
+    {
+        $array = parent::toArray();
+        $array[self::TYPE] = $this->getType();
+
+        return $array;
+    }
+
+    public function getType(): string
+    {
+        return LinkType::getName($this->{self::TYPE});
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

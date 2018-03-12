@@ -37,25 +37,28 @@ class User extends Model
         self::TYPE_CLIENT => 'client',
     ];
 
-    public $hidden = [
+    public const DEFAULT_TYPE = self::TYPE_DEVELOPER;
+
+    protected $hidden = [
         'password',
         'salt',
+        'token',
     ];
-    public const DEFAULT_TYPE = self::TYPE_DEVELOPER;
 
     public static function getType(int $userType): int
     {
         return in_array($userType, self::TYPES, true) ? $userType : self::DEFAULT_TYPE;
     }
 
+    public function toArray()
+    {
+        // unset names, put display name
+        // put real types
+    }
+
     public function getDisplayName(): string
     {
         return $this->{self::SHOW_NICKNAME} ? $this->{self::NICKNAME} : $this->getFullName();
-    }
-
-    private function getFullName(): string
-    {
-        return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
     }
 
     public function links(): HasMany
@@ -66,5 +69,10 @@ class User extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    private function getFullName(): string
+    {
+        return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
     }
 }

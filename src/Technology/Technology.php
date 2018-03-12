@@ -15,6 +15,12 @@ final class Technology extends Model
     public const TYPE = 'type';
     public const PARENT_ID = 'parent_id';
 
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+    ];
+
     public function developers(): BelongsToMany
     {
         return $this->belongsToMany(Developer::class);
