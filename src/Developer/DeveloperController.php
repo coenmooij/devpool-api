@@ -26,13 +26,19 @@ class DeveloperController extends AbstractController
         // Todo: validate filter by, sort/order
         $developers = $this->developerService->getAll();
 
-        return self::createResponse(['data' => $developers], Response::HTTP_OK);
+        return self::createResponse(
+            Response::HTTP_OK,
+            ['developers' => $developers]
+        );
     }
 
     public function getOne(int $id): JsonResponse
     {
         $developer = $this->developerService->getOne($id);
 
-        return self::createResponse(['data' => $developer], Response::HTTP_OK);
+        return self::createResponse(
+            Response::HTTP_OK,
+            ['developer' => $developer]
+        );
     }
 }
