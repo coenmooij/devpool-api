@@ -14,7 +14,6 @@ final class CreateDevelopersTable extends Migration
             'developers',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('user_id')->unsigned()->unique();
                 $table->string('speciality')->nullable();
                 $table->string('seniority')->nullable();
                 $table->integer('pipeline_status')->unsigned()->default(0);
@@ -23,7 +22,7 @@ final class CreateDevelopersTable extends Migration
                 $table->date('birth_date')->nullable();
                 $table->boolean('priority')->default(false);
                 $table->timestamps();
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign(['id'])->references('id')->on('users')->onDelete('cascade');
             }
         );
     }
