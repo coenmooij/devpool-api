@@ -15,7 +15,7 @@ final class DeveloperService implements DeveloperServiceInterface
     public function getAll(): Collection
     {
         // Todo: Check permissions
-        return Developer::get();
+        return Developer::with(['technologies'])->get();
     }
 
     public function getOne(int $id): Developer

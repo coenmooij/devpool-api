@@ -21,6 +21,8 @@ final class Developer extends User
     public const PHONE_NUMBER = 'phone';
     public const BIRTH_DATE = 'birth_date';
     public const PRIORITY = 'priority';
+    public const SALARY = 'salary';
+
     private const HIDDEN = [
         'pivot',
     ];
