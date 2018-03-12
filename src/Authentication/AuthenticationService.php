@@ -29,7 +29,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
         string $firstName,
         string $lastName,
         string $userType
-    ): int {
+    ): User {
         $user = $this->register($email, $password, $firstName, $lastName, $userType);
 
         if ($userType === UserType::DEVELOPER) {
@@ -42,22 +42,24 @@ final class AuthenticationService implements AuthenticationServiceInterface
             }
         }
 
-        return $user->{User::ID};
+        return $user;
     }
 
-    public function login(string $email, string $password): string
+    public function login(string $email, string $password): User
     {
         try {
             $user = $this->findUser(User::EMAIL, $email);
         } catch (ModelNotFoundException $exception) {
-            throw new LoginFailedException('User not found');
+            throw new LoginFailedException();
         }
 
         if (!$this->passwordIsValid($password, $user->{User::SALT}, $user->{User::PASSWORD})) {
-            throw new LoginFailedException('Password mismatch');
+            throw new LoginFailedException();
         }
 
-        return $this->createToken($user);
+        $this->createToken($user);
+
+        return $user;
     }
 
     public function logout(string $token): void
@@ -107,14 +109,14 @@ final class AuthenticationService implements AuthenticationServiceInterface
         return uniqid($prefix, true);
     }
 
-    private function createToken(User $user): string
+    private function createToken(User $user): User
     {
         $token = $user->{User::ID} . bin2hex(random_bytes(64));
         $user->{User::TOKEN} = $token;
         $user->{User::TOKEN_EXPIRES} = Carbon::now()->addHours(1);
         $user->save();
 
-        return $token;
+        return $user;
     }
 
     private function findUser($column, $value): User

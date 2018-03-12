@@ -22,7 +22,7 @@ final class AuthenticationMiddleware
             return $next($request);
         }
 
-        return AbstractController::createResponse(['message' => self::TOKEN_INVALID], Response::HTTP_UNAUTHORIZED);
+        return AbstractController::createResponse(Response::HTTP_UNAUTHORIZED, null, self::TOKEN_INVALID);
     }
 
     private function tokenIsValid(Request $request, string $token): bool

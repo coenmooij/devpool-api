@@ -49,7 +49,7 @@ final class AuthenticationController extends AbstractController
     {
         $this->validate($request, self::REGISTER_VALIDATION_RULES);
 
-        $id = $this->authenticationService->registerUser(
+        $user = $this->authenticationService->registerUser(
             $request->request->get(self::EMAIL_KEY),
             $request->request->get(self::PASSWORD_KEY),
             $request->request->get(self::FIRST_NAME_KEY),
@@ -58,27 +58,32 @@ final class AuthenticationController extends AbstractController
         );
 
         return self::createResponse(
-            ['message' => self::REGISTER_DEVELOPER_SUCCESS, 'id' => $id],
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
+            [['id' => $user->{User::ID}]],
+            self::REGISTER_DEVELOPER_SUCCESS
         );
     }
 
     public function login(Request $request): JsonResponse
     {
         $this->validate($request, self::LOGIN_VALIDATION_RULES);
-        $token = $this->authenticationService->login(
+        $user = $this->authenticationService->login(
             $request->request->get(self::EMAIL_KEY),
             $request->request->get(self::PASSWORD_KEY)
         );
 
-        return self::createResponse(['message' => self::LOGIN_SUCCESS, 'token' => $token], Response::HTTP_CREATED);
+        return self::createResponse(
+            Response::HTTP_CREATED,
+            ['token' => $user->{User::TOKEN}, 'type' => $user->getType()],
+            self::LOGIN_SUCCESS
+        );
     }
 
     public function logout(Request $request): JsonResponse
     {
         $this->authenticationService->logout($request->header('token', ''));
 
-        return self::createResponse(['message' => self::LOGOUT_SUCCESS], Response::HTTP_OK);
+        return self::createResponse(Response::HTTP_OK, null, self::LOGOUT_SUCCESS);
     }
 
     public function resetPassword(Request $request): JsonResponse
@@ -87,6 +92,6 @@ final class AuthenticationController extends AbstractController
 
         $this->authenticationService->resetPassword($request->request->get('email'));
 
-        return self::createResponse(['message' => self::PASSWORD_RESET], 201);
+        return self::createResponse(Response::HTTP_CREATED, null, self::PASSWORD_RESET);
     }
 }

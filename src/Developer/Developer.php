@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
+use CoenMooij\DevpoolApi\Developer\Form\Answer;
+use CoenMooij\DevpoolApi\Developer\Form\Form;
 use CoenMooij\DevpoolApi\Technology\Technology;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Developer extends User
 {
@@ -27,6 +30,11 @@ final class Developer extends User
     public function technologies(): BelongsToMany
     {
         return $this->belongsToMany(Technology::class);
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Answer::class);
     }
 
     public function toArray(): array
