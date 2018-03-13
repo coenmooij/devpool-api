@@ -28,7 +28,9 @@ final class DeveloperService implements DeveloperServiceInterface
                 'comments',
                 'answers',
                 'answers.question',
-                'answers.question.form'
+                'answers.question.form',
+                'comments',
+                'comments.author',
             ]
         )->find($id);
     }
