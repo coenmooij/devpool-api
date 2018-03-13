@@ -16,7 +16,7 @@ final class Link extends Model
     public const VALUE = 'value';
 
     protected $hidden = [
-        'user_id',
+        self::USER_ID,
     ];
 
     public function toArray(): array

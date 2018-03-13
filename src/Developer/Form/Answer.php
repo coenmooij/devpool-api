@@ -16,9 +16,9 @@ final class Answer extends Model
     public const VALUE = 'value';
 
     protected $hidden = [
-        'id',
-        'developer_id',
-        'question_id',
+        self::ID,
+        self::DEVELOPER_ID,
+        self::QUESTION_ID,
         'updated_at',
     ];
 

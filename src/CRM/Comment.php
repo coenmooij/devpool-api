@@ -16,6 +16,13 @@ final class Comment extends Model
     public const USER_ID = 'user_id';
     public const AUTHOR_ID = 'author_id';
 
+    protected $hidden = [
+        self::ID,
+        self::USER_ID,
+        self::AUTHOR_ID,
+        'updated_at',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -14,7 +14,7 @@ final class Form extends Model
     public const DESCRIPTION = 'description';
 
     protected $hidden = [
-        'id',
+        self::ID,
         'updated_at',
     ];
 
