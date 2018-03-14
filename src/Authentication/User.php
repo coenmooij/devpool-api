@@ -69,6 +69,31 @@ class User extends Model
         return $this->hasMany(Comment::class, 'user_id');
     }
 
+    public function isBackofficeUser(): bool
+    {
+        return $this->isType(UserType::BACKOFFICE);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->isType(UserType::ADMIN);
+    }
+
+    public function isDeveloper(): bool
+    {
+        return $this->isType(UserType::DEVELOPER);
+    }
+
+    public function isClient(): bool
+    {
+        return $this->isType(UserType::CLIENT);
+    }
+
+    public function isType(string $type): bool
+    {
+        return UserType::get($type) === $this->{User::TYPE};
+    }
+
     private function getFullName(): string
     {
         return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};

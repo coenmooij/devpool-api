@@ -32,9 +32,9 @@ class DeveloperController extends AbstractController
         );
     }
 
-    public function getOne(int $id): JsonResponse
+    public function getOne(Request $request, int $id): JsonResponse
     {
-        $developer = $this->developerService->getOne($id);
+        $developer = $this->developerService->getOne($this->getCurrentUser($request),$id);
 
         return self::createResponse(
             Response::HTTP_OK,

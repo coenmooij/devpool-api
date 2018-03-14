@@ -5,34 +5,40 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
+use CoenMooij\DevpoolApi\Infrastructure\Exceptions\PermissionException;
 use Illuminate\Database\Eloquent\Collection;
 
 final class DeveloperService implements DeveloperServiceInterface
 {
     /**
      * @return Developer[]|Collection
+     * @throws PermissionException
      */
-    public function getAll(): Collection
+    public function getAllForUser(User $user): Collection
     {
-        // Todo: Check permissions
-        return Developer::with(['technologies'])->get();
+        if ($user->isAdmin() || $user->isBackofficeUser()) {
+            return Developer::with(['technologies'])->get();
+        }
+        throw new PermissionException();
     }
 
-    public function getOne(int $id): Developer
+    public function getOneForUser(User $user, int $id): Developer
     {
-        // Todo: Check permissions
-        return Developer::with(
-            [
-                'technologies',
-                'links',
-                'comments',
-                'answers',
-                'answers.question',
-                'answers.question.form',
-                'comments',
-                'comments.author',
-            ]
-        )->find($id);
+        if ($user->isAdmin() || $user->isBackofficeUser() || $user->{User::ID} === $id) {
+            return Developer::with(
+                [
+                    'technologies',
+                    'links',
+                    'comments',
+                    'answers',
+                    'answers.question',
+                    'answers.question.form',
+                    'comments',
+                    'comments.author',
+                ]
+            )->find($id);
+        }
+        throw new PermissionException();
     }
 
     public function createDeveloperFromUser(User $user): Developer

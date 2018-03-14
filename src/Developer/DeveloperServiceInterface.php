@@ -12,9 +12,9 @@ interface DeveloperServiceInterface
     /**
      * @return Developer[]|Collection
      */
-    public function getAll(): Collection;
+    public function getAllForUser(User $user): Collection;
 
-    public function getOne(int $id): Developer;
+    public function getOneForUser(User $user, int $id): Developer;
 
     public function createDeveloperFromUser(User $user): Developer;
 }
