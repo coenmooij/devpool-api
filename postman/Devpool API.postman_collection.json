@@ -1,14 +1,14 @@
 {
 	"info": {
 		"name": "Devpool API",
-		"_postman_id": "56a8ef09-7330-4bf1-9bdf-1f4e69e8d2fb",
+		"_postman_id": "1c2db4c5-66ba-4722-9486-300baf1b0ed5",
 		"description": "Endpoints in Devpool-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Authentication",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Register Developer",
@@ -26,25 +26,21 @@
 								{
 									"key": "email",
 									"value": "random@casparcoding.com",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "firstName",
 									"value": "New",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "lastName",
 									"value": "User",
-									"description": "",
 									"type": "text"
 								}
 							]
@@ -59,7 +55,7 @@
 								"register-developer"
 							]
 						},
-						"description": ""
+						"description": null
 					},
 					"response": []
 				},
@@ -92,13 +88,11 @@
 								{
 									"key": "email",
 									"value": "coenmooij@gmail.com",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"description": "",
 									"type": "text"
 								}
 							]
@@ -113,7 +107,7 @@
 								"login"
 							]
 						},
-						"description": ""
+						"description": null
 					},
 					"response": []
 				},
@@ -149,13 +143,11 @@
 								{
 									"key": "email",
 									"value": "coenmooij@gmail.com",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"description": "",
 									"type": "text"
 								}
 							]
@@ -170,6 +162,58 @@
 								"logout"
 							]
 						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Login Backoffice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02e43605-5ff0-4f37-8db0-b9f133839720",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", data.data.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "sales@casparcoding.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/authentication/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"authentication",
+								"login"
+							]
+						},
 						"description": ""
 					},
 					"response": []
@@ -178,7 +222,7 @@
 		},
 		{
 			"name": "Developers",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "GET /developers",
@@ -200,13 +244,11 @@
 								{
 									"key": "email",
 									"value": "coenmooij@gmail.com",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"description": "",
 									"type": "text"
 								}
 							]
@@ -220,7 +262,7 @@
 								"developers"
 							]
 						},
-						"description": ""
+						"description": null
 					},
 					"response": []
 				},
@@ -244,13 +286,11 @@
 								{
 									"key": "email",
 									"value": "coenmooij@gmail.com",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"description": "",
 									"type": "text"
 								}
 							]
@@ -265,7 +305,7 @@
 								"1"
 							]
 						},
-						"description": ""
+						"description": null
 					},
 					"response": []
 				}

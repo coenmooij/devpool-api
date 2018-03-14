@@ -12,6 +12,6 @@ class PermissionException extends DevpoolException
 
     public function __construct(string $message = self::DEFAULT_MESSAGE)
     {
-        parent::__construct($message, Response::HTTP_FORBIDDEN);
+        parent::__construct(Response::HTTP_FORBIDDEN, $message);
     }
 }

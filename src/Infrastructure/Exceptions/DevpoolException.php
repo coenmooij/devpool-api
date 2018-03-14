@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\Infrastructure\Exceptions;
 
-use Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class DevpoolException extends Exception
+class DevpoolException extends HttpException
 {
 }

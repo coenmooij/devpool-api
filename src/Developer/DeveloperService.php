@@ -10,6 +10,26 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class DeveloperService implements DeveloperServiceInterface
 {
+    private const BACKOFFICE_EXTRA_FIELDS = [
+        'technologies',
+        'links',
+        'answers',
+        'answers.question',
+        'answers.question.form',
+        'comments',
+        'comments.author',
+    ];
+
+    private const DEVELOPER_EXTRA_FIELDS = [
+        'technologies',
+        'links',
+        'answers',
+        'answers.question',
+        'answers.question.form',
+    ];
+
+    private const ORDER_DESCENDING = 'desc';
+
     /**
      * @return Developer[]|Collection
      * @throws PermissionException
@@ -17,26 +37,18 @@ final class DeveloperService implements DeveloperServiceInterface
     public function getAllForUser(User $user): Collection
     {
         if ($user->isAdmin() || $user->isBackofficeUser()) {
-            return Developer::with(['technologies'])->get();
+            return Developer::with(['technologies'])->orderBy(Developer::PRIORITY, self::ORDER_DESCENDING)->get();
         }
         throw new PermissionException();
     }
 
     public function getOneForUser(User $user, int $id): Developer
     {
-        if ($user->isAdmin() || $user->isBackofficeUser() || $user->{User::ID} === $id) {
-            return Developer::with(
-                [
-                    'technologies',
-                    'links',
-                    'comments',
-                    'answers',
-                    'answers.question',
-                    'answers.question.form',
-                    'comments',
-                    'comments.author',
-                ]
-            )->find($id);
+        if ($user->isAdmin() || $user->isBackofficeUser()) {
+            return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->find($id);
+        }
+        if ($user->isDeveloper() && $user->{User::ID} === $id) {
+            return Developer::with(self::DEVELOPER_EXTRA_FIELDS)->find($id);
         }
         throw new PermissionException();
     }

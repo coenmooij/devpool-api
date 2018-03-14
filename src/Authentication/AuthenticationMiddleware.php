@@ -30,10 +30,10 @@ final class AuthenticationMiddleware
         try {
             $user = User::where('token', $token)
                 ->where('token_expires', '>', Carbon::now())
-                ->select([User::ID, User::EMAIL, User::FIRST_NAME, User::LAST_NAME])
                 ->firstOrFail();
             $user->{User::TOKEN_EXPIRES} = Carbon::now()->addHours(1);
             $user->save();
+
             $request->attributes->set('user', $user);
 
             return true;

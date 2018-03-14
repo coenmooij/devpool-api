@@ -39,7 +39,7 @@ class User extends Model
         self::TOKEN,
     ];
 
-    public function toArray()
+    public function toArray(): array
     {
         $array = parent::toArray();
         $array[self::TYPE] = $this->getType();

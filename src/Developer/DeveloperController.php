@@ -24,7 +24,7 @@ class DeveloperController extends AbstractController
     public function getAll(Request $request): JsonResponse
     {
         // Todo: validate filter by, sort/order
-        $developers = $this->developerService->getAll();
+        $developers = $this->developerService->getAllForUser($this->getCurrentUser($request));
 
         return self::createResponse(
             Response::HTTP_OK,
@@ -34,7 +34,7 @@ class DeveloperController extends AbstractController
 
     public function getOne(Request $request, int $id): JsonResponse
     {
-        $developer = $this->developerService->getOne($this->getCurrentUser($request),$id);
+        $developer = $this->developerService->getOneForUser($this->getCurrentUser($request), $id);
 
         return self::createResponse(
             Response::HTTP_OK,
