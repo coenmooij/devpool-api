@@ -25,7 +25,26 @@ Route::middleware('auth')->group(
         Route::namespace('CoenMooij\DevpoolApi\Developer')->group(
             function () {
                 Route::get('/developers', 'DeveloperController@getAll');
+                Route::post('/developers', 'DeveloperController@create');
                 Route::get('/developers/{id}', 'DeveloperController@getOne');
+                Route::patch('/developers/{id}', 'DeveloperController@update');
+
+                Route::get('/developers/{id}/links', 'LinkController@get'); // TODO : Implement later
+                Route::post('/developers/{id}/links', 'LinkController@create'); // TODO : Implement later
+                Route::patch('/developers/{id}/links', 'LinkController@update'); // TODO : Implement later
+                Route::delete('/developers/{id}/links', 'LinkController@delete'); // TODO : Implement later
+
+                Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
+                Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later
+                Route::patch('/developers/{id}/technologies', 'TechnologyController@update'); // TODO : Implement later
+                Route::delete('/developers/{id}/technologies', 'TechnologyController@delete'); // TODO : Implement later
+
+                Route::get('/developers/{id}/answers', 'AnswerController@get'); // TODO : Implement later
+                Route::post('/developers/{id}/answers', 'AnswerController@create'); // TODO : Implement later
+                Route::patch('/developers/{id}/answers', 'AnswerController@update'); // TODO : Implement later
+                Route::delete('/developers/{id}/answers', 'AnswerController@delete'); // TODO : Implement later
+
+                Route::post('/forms', 'FormController@create'); // TODO : Implement later
             }
         );
     }
