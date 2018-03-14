@@ -7,6 +7,7 @@ namespace CoenMooij\DevpoolApi\Developer;
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Infrastructure\Exceptions\PermissionException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 final class DeveloperService implements DeveloperServiceInterface
 {
@@ -34,16 +35,18 @@ final class DeveloperService implements DeveloperServiceInterface
      * @return Developer[]|Collection
      * @throws PermissionException
      */
-    public function getAllForUser(User $user): Collection
+    public function getAll(): Collection
     {
+        $user = Auth::user();
         if ($user->isAdmin() || $user->isBackofficeUser()) {
             return Developer::with(['technologies'])->orderBy(Developer::PRIORITY, self::ORDER_DESCENDING)->get();
         }
         throw new PermissionException();
     }
 
-    public function getOneForUser(User $user, int $id): Developer
+    public function getOne(int $id): Developer
     {
+        $user = Auth::user();
         if ($user->isAdmin() || $user->isBackofficeUser()) {
             return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->find($id);
         }

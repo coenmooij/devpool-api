@@ -6,7 +6,6 @@ namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Infrastructure\AbstractController;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DeveloperController extends AbstractController
@@ -21,10 +20,10 @@ class DeveloperController extends AbstractController
         $this->developerService = $developerService;
     }
 
-    public function getAll(Request $request): JsonResponse
+    public function getAll(): JsonResponse
     {
-        // Todo: validate filter by, sort/order
-        $developers = $this->developerService->getAllForUser($this->getCurrentUser($request));
+        // TODO : Add filters, orderBy
+        $developers = $this->developerService->getAll();
 
         return self::createResponse(
             Response::HTTP_OK,
@@ -32,9 +31,9 @@ class DeveloperController extends AbstractController
         );
     }
 
-    public function getOne(Request $request, int $id): JsonResponse
+    public function getOne(int $id): JsonResponse
     {
-        $developer = $this->developerService->getOneForUser($this->getCurrentUser($request), $id);
+        $developer = $this->developerService->getOne($id);
 
         return self::createResponse(
             Response::HTTP_OK,

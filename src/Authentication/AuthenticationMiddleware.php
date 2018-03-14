@@ -10,10 +10,11 @@ use CoenMooij\DevpoolApi\Infrastructure\AbstractController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 final class AuthenticationMiddleware
 {
-    const TOKEN_INVALID = 'Invalid Token';
+    private const TOKEN_INVALID = 'Invalid Token';
 
     public function handle(Request $request, Closure $next)
     {
@@ -34,7 +35,7 @@ final class AuthenticationMiddleware
             $user->{User::TOKEN_EXPIRES} = Carbon::now()->addHours(1);
             $user->save();
 
-            $request->attributes->set('user', $user);
+            Auth::login($user);
 
             return true;
         } catch (ModelNotFoundException $exception) {

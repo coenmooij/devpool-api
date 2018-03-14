@@ -6,10 +6,11 @@ namespace CoenMooij\DevpoolApi\Authentication;
 
 use CoenMooij\DevpoolApi\CRM\Comment;
 use CoenMooij\DevpoolApi\Profile\Link;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+class User extends Model implements Authenticatable
 {
     public const ID = 'id';
     public const EMAIL = 'email';
@@ -97,5 +98,38 @@ class User extends Model
     private function getFullName(): string
     {
         return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
+    }
+
+    /**
+     * Add these so we can use the Auth Facade
+     */
+
+    public function getAuthIdentifierName(): string
+    {
+        return self::ID;
+    }
+
+    public function getAuthIdentifier(): int
+    {
+        return $this->{self::ID};
+    }
+
+    public function getAuthPassword(): string
+    {
+        return '';
+    }
+
+    public function getRememberToken(): string
+    {
+        return '';
+    }
+
+   public function setRememberToken($value): void
+    {
+    }
+
+    public function getRememberTokenName()
+    {
+        return self::TOKEN;
     }
 }
