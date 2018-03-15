@@ -29,10 +29,10 @@ Route::middleware('auth')->group(
                 Route::get('/developers/{id}', 'DeveloperController@getOne');
                 Route::patch('/developers/{id}', 'DeveloperController@update');
 
-                Route::get('/developers/{id}/links', 'LinkController@get'); // TODO : Implement later
-                Route::post('/developers/{id}/links', 'LinkController@create'); // TODO : Implement later
-                Route::patch('/developers/{id}/links', 'LinkController@update'); // TODO : Implement later
-                Route::delete('/developers/{id}/links', 'LinkController@delete'); // TODO : Implement later
+                Route::get('/developers/{id}/links', 'LinkController@getByDeveloper');
+                Route::post('/developers/{id}/links', 'LinkController@create');
+                Route::patch('/developers/{id}/links', 'LinkController@update');
+                Route::delete('/developers/{id}/links', 'LinkController@delete');
 
                 Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
                 Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later
