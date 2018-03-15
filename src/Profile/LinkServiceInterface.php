@@ -18,9 +18,11 @@ interface LinkServiceInterface
      */
     public function getByType(string $type): Collection;
 
+    public function getOne(int $linkId): Link;
+
     public function create(int $developerId, string $type, string $value): Link;
 
-    public function update(int $linkId, $value): Link;
+    public function update(int $linkId, string $value): Link;
 
     public function delete(int $linkId): bool;
 }

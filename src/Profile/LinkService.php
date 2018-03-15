@@ -4,16 +4,29 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\Profile;
 
+use CoenMooij\DevpoolApi\Permission\PermissionService;
 use Illuminate\Support\Collection;
 
 final class LinkService implements LinkServiceInterface
 {
     /**
+     * @var PermissionService
+     */
+    private $permissionService;
+
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
+
+    /**
      * @return Link[]|Collection
      */
     public function getByDeveloper(int $developerId): Collection
     {
-        // TODO: Implement getByDeveloper() method.
+        $this->permissionService->ensureCanAccessDeveloper($developerId);
+
+        return Link::where(Link::USER_ID, $developerId)->get();
     }
 
     /**
@@ -21,21 +34,50 @@ final class LinkService implements LinkServiceInterface
      */
     public function getByType(string $type): Collection
     {
-        // TODO: Implement getByType() method.
+        $this->permissionService->ensureIsAdmin();
+
+        return Link::where(Link::TYPE, $type)->get();
+    }
+
+    public function getOne(int $linkId): Link
+    {
+        /** @var Link $link */
+        $link = Link::find($linkId);
+        $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
+
+        return $link;
     }
 
     public function create(int $developerId, string $type, string $value): Link
     {
-        // TODO: Implement create() method.
+        $this->permissionService->ensureCanAccessDeveloper($developerId);
+
+        $link = new Link();
+        $link->{Link::USER_ID} = $developerId;
+        $link->{Link::TYPE} = LinkType::get($type);
+        $link->{Link::VALUE} = $value;
+        $link->saveOrFail();
+
+        return $link;
     }
 
-    public function update(int $linkId, $value): Link
+    public function update(int $linkId, string $value): Link
     {
-        // TODO: Implement update() method.
+        /** @var Link $link */
+        $link = Link::find($linkId);
+        $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
+        $link->{Link::VALUE} = $value;
+        $link->saveOrFail();
+
+        return $link;
     }
 
     public function delete(int $linkId): bool
     {
-        // TODO: Implement delete() method.
+        /** @var Link $link */
+        $link = Link::find($linkId);
+        $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
+
+        return $link->delete();
     }
 }

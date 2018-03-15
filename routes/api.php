@@ -31,8 +31,9 @@ Route::middleware('auth')->group(
 
                 Route::get('/developers/{id}/links', 'LinkController@getByDeveloper');
                 Route::post('/developers/{id}/links', 'LinkController@create');
-                Route::patch('/developers/{id}/links', 'LinkController@update');
-                Route::delete('/developers/{id}/links', 'LinkController@delete');
+                Route::get('/links/{id}', 'LinkController@getOne');
+                Route::patch('/links/{id}', 'LinkController@update');
+                Route::delete('/links/{id}', 'LinkController@delete');
 
                 Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
                 Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later

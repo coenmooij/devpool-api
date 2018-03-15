@@ -124,7 +124,7 @@ class User extends Model implements Authenticatable
         return '';
     }
 
-   public function setRememberToken($value): void
+    public function setRememberToken($value): void
     {
     }
 
