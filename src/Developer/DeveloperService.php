@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Infrastructure\Exceptions\PermissionException;
+use CoenMooij\DevpoolApi\Permission\PermissionException;
+use CoenMooij\DevpoolApi\Permission\PermissionService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 final class DeveloperService implements DeveloperServiceInterface
 {
@@ -32,26 +32,32 @@ final class DeveloperService implements DeveloperServiceInterface
     private const ORDER_DESCENDING = 'desc';
 
     /**
+     * @var PermissionService
+     */
+    private $permissionService;
+
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
+
+    /**
      * @return Developer[]|Collection
-     * @throws PermissionException
      */
     public function getAll(): Collection
     {
-        $user = Auth::user();
-        if ($user->isAdmin() || $user->isBackofficeUser()) {
-            return Developer::with(['technologies'])->orderBy(Developer::PRIORITY, self::ORDER_DESCENDING)->get();
-        }
-        throw new PermissionException();
+        $this->permissionService->ensureCanAccessDevelopers();
+
+        return Developer::with(['technologies'])->orderBy(Developer::PRIORITY, self::ORDER_DESCENDING)->get();
     }
 
     public function getOne(int $id): Developer
     {
-        $user = Auth::user();
-        if ($user->isAdmin() || $user->isBackofficeUser()) {
-            return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->find($id);
-        }
-        if ($user->isDeveloper() && $user->{User::ID} === $id) {
+        if ($this->permissionService->isDeveloper($id)) {
             return Developer::with(self::DEVELOPER_EXTRA_FIELDS)->find($id);
+        }
+        if ($this->permissionService->canAccessDevelopers()) {
+            return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->find($id);
         }
         throw new PermissionException();
     }

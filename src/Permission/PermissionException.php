@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CoenMooij\DevpoolApi\Infrastructure\Exceptions;
+namespace CoenMooij\DevpoolApi\Permission;
 
+use CoenMooij\DevpoolApi\Infrastructure\Exceptions\DevpoolException;
 use Illuminate\Http\Response;
 
 class PermissionException extends DevpoolException

@@ -33,6 +33,13 @@ class LinkController extends AbstractController
         return self::createResponse(Response::HTTP_OK, [self::LINKS_KEY => $links]);
     }
 
+    public function getOne(int $id): JsonResponse
+    {
+        $link = $this->linkService->getOne($id);
+
+        return self::createResponse(Response::HTTP_OK, [self::LINK_KEY => $link]);
+    }
+
     public function create(Request $request, int $id): JsonResponse
     {
         $link = $this->linkService->create(
