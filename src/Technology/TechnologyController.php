@@ -13,6 +13,9 @@ final class TechnologyController extends AbstractController
 {
     private const TECHNOLOGIES_KEY = 'technologies';
     private const TECHNOLOGY_ID_LIST_KEY = 'technology_id_list';
+    private const RULES = [
+        self::TECHNOLOGY_ID_LIST_KEY . '.id' => 'required|numeric',
+    ];
 
     /**
      * @var TechnologyServiceInterface
@@ -33,6 +36,7 @@ final class TechnologyController extends AbstractController
 
     public function addToDeveloper(Request $request, int $id): JsonResponse
     {
+        $this->validate($request, self::RULES);
         $technologies = $this->technologyService->addToDeveloper(
             $id,
             $request->request->get(self::TECHNOLOGY_ID_LIST_KEY)
@@ -43,6 +47,7 @@ final class TechnologyController extends AbstractController
 
     public function removeFromDeveloper(Request $request, int $id): JsonResponse
     {
+        $this->validate($request, self::RULES);
         $technologies = $this->technologyService->removeFromDeveloper(
             $id,
             $request->request->get(self::TECHNOLOGY_ID_LIST_KEY)

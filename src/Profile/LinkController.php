@@ -16,6 +16,15 @@ final class LinkController extends AbstractController
     private const LINK_KEY = 'link';
     private const LINKS_KEY = 'links';
     private const MESSAGE_LINK_DELETED = 'Link was deleted';
+
+    private const CREATE_RULES = [
+        self::TYPE_KEY => 'required|max:255',
+        self::VALUE_KEY => 'required|max:255',
+    ];
+    private const UPDATE_RULES = [
+        self::VALUE_KEY => 'required|max:255',
+    ];
+
     /**
      * @var LinkServiceInterface
      */
@@ -42,6 +51,7 @@ final class LinkController extends AbstractController
 
     public function create(Request $request, int $id): JsonResponse
     {
+        $this->validate($request, self::CREATE_RULES);
         $link = $this->linkService->create(
             $id,
             $request->request->get(self::TYPE_KEY),
@@ -53,6 +63,7 @@ final class LinkController extends AbstractController
 
     public function update(Request $request, int $id): JsonResponse
     {
+        $this->validate($request, self::UPDATE_RULES);
         $link = $this->linkService->update($id, $request->request->get(self::VALUE_KEY));
 
         return self::createResponse(Response::HTTP_ACCEPTED, [self::LINK_KEY => $link]);
