@@ -39,11 +39,13 @@ Route::middleware('auth')->group(
                 Route::delete('/comments/{id}', 'CommentController@delete');
             }
         );
-
-        Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
-        Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later
-        Route::patch('/developers/{id}/technologies', 'TechnologyController@update'); // TODO : Implement later
-        Route::delete('/developers/{id}/technologies', 'TechnologyController@delete'); // TODO : Implement later
+        Route::namespace('CoenMooij\DevpoolApi\Technology')->group(
+            function () {
+                Route::get('/developers/{id}/technologies', 'TechnologyController@getByDeveloper');
+                Route::post('/developers/{id}/technologies', 'TechnologyController@addToDeveloper');
+                Route::delete('/developers/{id}/technologies','TechnologyController@removeFromDeveloper');
+            }
+        );
 
         Route::get('/developers/{id}/answers', 'AnswerController@get'); // TODO : Implement later
         Route::post('/developers/{id}/answers', 'AnswerController@create'); // TODO : Implement later
