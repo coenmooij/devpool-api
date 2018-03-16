@@ -1,15 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('authentication')->namespace('CoenMooij\DevpoolApi\Authentication')->group(
     function () {
@@ -28,25 +19,37 @@ Route::middleware('auth')->group(
                 Route::post('/developers', 'DeveloperController@create');
                 Route::get('/developers/{id}', 'DeveloperController@getOne');
                 Route::patch('/developers/{id}', 'DeveloperController@update');
-
+            }
+        );
+        Route::namespace('CoenMooij\DevpoolApi\Profile')->group(
+            function () {
                 Route::get('/developers/{id}/links', 'LinkController@getByDeveloper');
                 Route::post('/developers/{id}/links', 'LinkController@create');
                 Route::get('/links/{id}', 'LinkController@getOne');
                 Route::patch('/links/{id}', 'LinkController@update');
                 Route::delete('/links/{id}', 'LinkController@delete');
-
-                Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
-                Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later
-                Route::patch('/developers/{id}/technologies', 'TechnologyController@update'); // TODO : Implement later
-                Route::delete('/developers/{id}/technologies', 'TechnologyController@delete'); // TODO : Implement later
-
-                Route::get('/developers/{id}/answers', 'AnswerController@get'); // TODO : Implement later
-                Route::post('/developers/{id}/answers', 'AnswerController@create'); // TODO : Implement later
-                Route::patch('/developers/{id}/answers', 'AnswerController@update'); // TODO : Implement later
-                Route::delete('/developers/{id}/answers', 'AnswerController@delete'); // TODO : Implement later
-
-                Route::post('/forms', 'FormController@create'); // TODO : Implement later
             }
         );
+        Route::namespace('CoenMooij\DevpoolApi\CRM')->group(
+            function () {
+                Route::get('/developers/{id}/comments', 'CommentController@getByDeveloper');
+                Route::post('/developers/{id}/comments', 'CommentController@create');
+                Route::get('/comments/{id}', 'CommentController@getOne');
+                Route::patch('/comments/{id}', 'CommentController@update');
+                Route::delete('/comments/{id}', 'CommentController@delete');
+            }
+        );
+
+        Route::get('/developers/{id}/technologies', 'TechnologyController@get'); // TODO : Implement later
+        Route::post('/developers/{id}/technologies', 'TechnologyController@create'); // TODO : Implement later
+        Route::patch('/developers/{id}/technologies', 'TechnologyController@update'); // TODO : Implement later
+        Route::delete('/developers/{id}/technologies', 'TechnologyController@delete'); // TODO : Implement later
+
+        Route::get('/developers/{id}/answers', 'AnswerController@get'); // TODO : Implement later
+        Route::post('/developers/{id}/answers', 'AnswerController@create'); // TODO : Implement later
+        Route::patch('/developers/{id}/answers', 'AnswerController@update'); // TODO : Implement later
+        Route::delete('/developers/{id}/answers', 'AnswerController@delete'); // TODO : Implement later
+
+        Route::post('/forms', 'FormController@create'); // TODO : Implement later
     }
 );
