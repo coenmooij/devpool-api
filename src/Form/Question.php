@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CoenMooij\DevpoolApi\Developer\Form;
+namespace CoenMooij\DevpoolApi\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
