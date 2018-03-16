@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class LinkController extends AbstractController
+final class LinkController extends AbstractController
 {
     private const TYPE_KEY = 'type';
     private const VALUE_KEY = 'value';
