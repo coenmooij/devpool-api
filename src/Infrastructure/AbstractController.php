@@ -15,18 +15,18 @@ abstract class AbstractController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    private const MESSAGE_KEY = 'message';
-    private const DATA_KEY = 'data';
-    private const STATUS_CODE_KEY = 'code';
+    private const RESPONSE_MESSAGE_KEY = 'message';
+    private const RESPONSE_DATA_KEY = 'data';
+    private const RESPONSE_STATUS_CODE_KEY = 'code';
 
     public static function createResponse(int $statusCode, $data = null, string $message = null): JsonResponse
     {
         $responseBody = [
-            self::STATUS_CODE_KEY => $statusCode,
-            self::MESSAGE_KEY => $message ?? Response::$statusTexts[$statusCode],
+            self::RESPONSE_STATUS_CODE_KEY => $statusCode,
+            self::RESPONSE_MESSAGE_KEY => $message ?? Response::$statusTexts[$statusCode],
         ];
         if ($data !== null) {
-            $responseBody[self::DATA_KEY] = $data;
+            $responseBody[self::RESPONSE_DATA_KEY] = $data;
         }
 
         return response()->json($responseBody, $statusCode);

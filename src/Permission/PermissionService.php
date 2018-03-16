@@ -38,12 +38,12 @@ final class PermissionService
 
     public function canAccessDevelopers(): bool
     {
-        return $this->user->isAdmin() || $this->user->isBackofficeUser();
+        return $this->isAdminOrBackofficeUser();
     }
 
     public function isDeveloper(int $id): bool
     {
-        return $this->user->isDeveloper() && $this->user->{User::ID} === $id;
+        return $this->user->isDeveloper() && $this->isUser($id);
     }
 
     public function ensureIsAdmin(): void
@@ -51,5 +51,29 @@ final class PermissionService
         if (!$this->user->isAdmin()) {
             throw new PermissionException();
         }
+    }
+
+    public function ensureIsAdminOrBackofficeUser(): void
+    {
+        if (!$this->isAdminOrBackofficeUser()) {
+            throw new PermissionException();
+        }
+    }
+
+    public function ensureIsAdminOrUser(int $userId): void
+    {
+        if (!$this->user->isAdmin() && !$this->isUser($userId)) {
+            throw new PermissionException();
+        }
+    }
+
+    public function isUser(int $id): bool
+    {
+        return $this->user->{User::ID} === $id;
+    }
+
+    public function isAdminOrBackofficeUser(): bool
+    {
+        return $this->user->isAdmin() || $this->user->isBackofficeUser();
     }
 }
