@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Developer\Form\Answer;
-use CoenMooij\DevpoolApi\Developer\Form\Form;
+use CoenMooij\DevpoolApi\Form\Answer;
 use CoenMooij\DevpoolApi\Technology\Technology;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;

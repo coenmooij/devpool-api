@@ -1,8 +1,8 @@
 <?php
 
-use CoenMooij\DevpoolApi\Developer\Form\Answer;
-use CoenMooij\DevpoolApi\Developer\Form\Form;
-use CoenMooij\DevpoolApi\Developer\Form\Question;
+use CoenMooij\DevpoolApi\Form\Answer;
+use CoenMooij\DevpoolApi\Form\Form;
+use CoenMooij\DevpoolApi\Form\Question;
 use Illuminate\Database\Seeder;
 
 class FormSeeder extends Seeder
