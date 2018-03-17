@@ -54,10 +54,10 @@ final class DeveloperService implements DeveloperServiceInterface
     public function getOne(int $id): Developer
     {
         if ($this->permissionService->isDeveloper($id)) {
-            return Developer::with(self::DEVELOPER_EXTRA_FIELDS)->find($id);
+            return Developer::with(self::DEVELOPER_EXTRA_FIELDS)->findOrFail($id);
         }
         if ($this->permissionService->canAccessDevelopers()) {
-            return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->find($id);
+            return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->findOrFail($id);
         }
         throw new PermissionException();
     }

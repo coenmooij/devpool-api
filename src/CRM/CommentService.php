@@ -36,7 +36,7 @@ final class CommentService implements CommentServiceInterface
     {
         $this->permissionService->ensureIsAdminOrBackofficeUser();
 
-        return Comment::find($commentId)->with('author');
+        return Comment::with('author')->findOrFail($commentId);
     }
 
     public function create(int $developerId, string $type, string $message): Comment
@@ -56,7 +56,7 @@ final class CommentService implements CommentServiceInterface
     public function update(int $commentId, string $message): Comment
     {
         /** @var Comment $comment */
-        $comment = Comment::find($commentId);
+        $comment = Comment::findOrFail($commentId);
         $this->permissionService->ensureIsAdminOrUser($comment->{Comment::AUTHOR_ID});
         $comment->{Comment::MESSAGE} = $message;
         $comment->saveOrFail();
@@ -69,7 +69,7 @@ final class CommentService implements CommentServiceInterface
         $this->permissionService->ensureIsAdmin();
 
         /** @var Comment $comment */
-        $comment = Comment::find($commentId);
+        $comment = Comment::findOrFail($commentId);
 
         return $comment->delete();
     }

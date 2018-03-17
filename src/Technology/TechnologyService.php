@@ -28,7 +28,7 @@ final class TechnologyService implements TechnologyServiceInterface
         $this->permissionService->ensureCanAccessDeveloper($developerId);
 
         /** @var Developer $developer */
-        $developer = Developer::find($developerId);
+        $developer = Developer::findOrFail($developerId);
 
         return $developer->technologies()->get();
     }
@@ -41,7 +41,7 @@ final class TechnologyService implements TechnologyServiceInterface
         $this->permissionService->ensureCanAccessDeveloper($developerId);
 
         /** @var Developer $developer */
-        $developer = Developer::find($developerId);
+        $developer = Developer::findOrFail($developerId);
         $developer->technologies()->attach($technologyIdList);
 
         return $developer->technologies()->get();
@@ -55,7 +55,7 @@ final class TechnologyService implements TechnologyServiceInterface
         $this->permissionService->ensureCanAccessDeveloper($developerId);
 
         /** @var Developer $developer */
-        $developer = Developer::find($developerId);
+        $developer = Developer::findOrFail($developerId);
         $developer->technologies()->detach($technologyIdList);
 
         return $developer->technologies()->get();
