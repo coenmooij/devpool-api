@@ -13,8 +13,13 @@ final class FormController extends AbstractController
 {
     private const FORM_KEY = 'form';
     private const FORMS_KEY = 'forms';
+    private const FORM_ID_KEY = 'form_id';
+    private const ANSWERS_KEY = 'answers';
+
     private const RULES = [
-        'answers.value' => 'required|max:255',
+        self::FORM_ID_KEY => 'required|numeric',
+        self::ANSWERS_KEY => 'required',
+        self::ANSWERS_KEY . '.*' => 'required|max:255',
     ];
 
     /**
@@ -51,7 +56,11 @@ final class FormController extends AbstractController
     public function addToDeveloper(Request $request, int $id): JsonResponse
     {
         $this->validate($request, self::RULES);
-        $form = $this->formService->addToDeveloper($id, ...$request->request->get('answers'));
+        $form = $this->formService->addToDeveloper(
+            $id,
+            $request->request->get(self::FORM_ID_KEY),
+            ...$request->request->get('answers')
+        );
 
         return self::createResponse(Response::HTTP_OK, [self::FORM_KEY => $form]);
     }

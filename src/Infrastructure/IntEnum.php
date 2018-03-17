@@ -13,11 +13,13 @@ abstract class IntEnum
      * @var array
      */
     protected const ALL = [];
+    private const INVALID_NAME = 'Invalid name for enum';
+    private const INVALID_KEY = 'Invalid key for enum';
 
     public static function get(string $key): int
     {
         if (!isset(static::ALL[$key])) {
-            throw new LogicException();
+            throw new LogicException(self::INVALID_NAME);
         }
 
         return static::ALL[$key];
@@ -27,7 +29,7 @@ abstract class IntEnum
     {
         $allNames = array_flip(static::ALL);
         if (!isset($allNames[$key])) {
-            throw new LogicException();
+            throw new LogicException(self::INVALID_KEY);
         }
 
         return $allNames[$key];

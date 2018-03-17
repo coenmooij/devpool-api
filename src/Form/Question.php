@@ -19,6 +19,7 @@ final class Question extends Model
         self::ID,
         self::FORM_ID,
         'updated_at',
+        'created_at',
     ];
 
     public function form(): BelongsTo

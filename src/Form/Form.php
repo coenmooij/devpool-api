@@ -14,8 +14,8 @@ final class Form extends Model
     public const DESCRIPTION = 'description';
 
     protected $hidden = [
-        self::ID,
         'updated_at',
+        'created_at',
     ];
 
     public function questions(): HasMany

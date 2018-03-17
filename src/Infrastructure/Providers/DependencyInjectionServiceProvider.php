@@ -10,6 +10,8 @@ use CoenMooij\DevpoolApi\CRM\CommentService;
 use CoenMooij\DevpoolApi\CRM\CommentServiceInterface;
 use CoenMooij\DevpoolApi\Developer\DeveloperService;
 use CoenMooij\DevpoolApi\Developer\DeveloperServiceInterface;
+use CoenMooij\DevpoolApi\Form\FormService;
+use CoenMooij\DevpoolApi\Form\FormServiceInterface;
 use CoenMooij\DevpoolApi\Profile\LinkService;
 use CoenMooij\DevpoolApi\Profile\LinkServiceInterface;
 use CoenMooij\DevpoolApi\Technology\TechnologyService;
@@ -25,5 +27,6 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(LinkServiceInterface::class, LinkService::class);
         $this->app->bind(CommentServiceInterface::class, CommentService::class);
         $this->app->bind(TechnologyServiceInterface::class, TechnologyService::class);
+        $this->app->bind(FormServiceInterface::class, FormService::class);
     }
 }
