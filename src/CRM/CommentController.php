@@ -73,6 +73,6 @@ final class CommentController extends AbstractController
     {
         $this->commentService->delete($id);
 
-        return self::createResponse(Response::HTTP_NO_CONTENT, null, self::MESSAGE_COMMENT_DELETED);
+        return self::createResponse(Response::HTTP_ACCEPTED, null, self::MESSAGE_COMMENT_DELETED);
     }
 }

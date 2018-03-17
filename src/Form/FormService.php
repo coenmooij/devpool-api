@@ -7,6 +7,8 @@ namespace CoenMooij\DevpoolApi\Form;
 use CoenMooij\DevpoolApi\Permission\PermissionService;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 final class FormService implements FormServiceInterface
@@ -27,7 +29,7 @@ final class FormService implements FormServiceInterface
     {
         return Form::with(
             [
-                'questions' => function (QueryBuilder $query) {
+                'questions' => function (HasMany $query) {
                     $query->orderBy(Question::ORDER, self::ASCENDING);
                 }
             ]
@@ -38,7 +40,7 @@ final class FormService implements FormServiceInterface
     {
         return Form::with(
             [
-                'questions' => function (QueryBuilder $query) {
+                'questions' => function (HasMany $query) {
                     $query->orderBy(Question::ORDER, self::ASCENDING);
                 }
             ]
@@ -54,10 +56,10 @@ final class FormService implements FormServiceInterface
 
         return Form::with(
             [
-                'questions' => function (QueryBuilder $query) {
+                'questions' => function (HasMany $query) {
                     $query->orderBy(Question::ORDER, self::ASCENDING);
                 },
-                'questions.answers' => function (QueryBuilder $query) use ($developerId) {
+                'questions.answers' => function (HasMany $query) use ($developerId) {
                     $query->where(Answer::DEVELOPER_ID, $developerId);
                 }
             ]
@@ -91,10 +93,10 @@ final class FormService implements FormServiceInterface
     {
         return Form::with(
             [
-                'questions' => function (QueryBuilder $query) {
+                'questions' => function (HasMany $query) {
                     $query->orderBy(Question::ORDER, self::ASCENDING);
                 },
-                'questions.answers' => function (QueryBuilder $query) use ($developerId) {
+                'questions.answers' => function (HasMany $query) use ($developerId) {
                     $query->where(Answer::DEVELOPER_ID, $developerId);
                 }
             ]
