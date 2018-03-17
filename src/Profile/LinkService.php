@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\Profile;
 
 use CoenMooij\DevpoolApi\Permission\PermissionService;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 final class LinkService implements LinkServiceInterface
 {

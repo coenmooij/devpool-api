@@ -43,15 +43,16 @@ Route::middleware('auth')->group(
             function () {
                 Route::get('/developers/{id}/technologies', 'TechnologyController@getByDeveloper');
                 Route::post('/developers/{id}/technologies', 'TechnologyController@addToDeveloper');
-                Route::delete('/developers/{id}/technologies','TechnologyController@removeFromDeveloper');
+                Route::delete('/developers/{id}/technologies', 'TechnologyController@removeFromDeveloper');
             }
         );
-
-        Route::get('/developers/{id}/answers', 'AnswerController@get'); // TODO : Implement later
-        Route::post('/developers/{id}/answers', 'AnswerController@create'); // TODO : Implement later
-        Route::patch('/developers/{id}/answers', 'AnswerController@update'); // TODO : Implement later
-        Route::delete('/developers/{id}/answers', 'AnswerController@delete'); // TODO : Implement later
-
-        Route::post('/forms', 'FormController@create'); // TODO : Implement later
+        Route::namespace('CoenMooij\DevpoolApi\Form')->group(
+            function () {
+                Route::get('/forms/developers/latest', 'FormController@getLatestDeveloperForm');
+                Route::get('/forms/developers/{id}', 'FormController@getDeveloperForm');
+                Route::get('/developers/{id}/forms', 'FormController@getByDeveloper');
+                Route::post('/developers/{id}/forms', 'FormController@addToDeveloper');
+            }
+        );
     }
 );
