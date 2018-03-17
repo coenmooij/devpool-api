@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "Devpool API",
-		"_postman_id": "1c2db4c5-66ba-4722-9486-300baf1b0ed5",
+		"_postman_id": "19bafdce-3ade-4f99-9ea4-67e8f0cdbf04",
 		"description": "Endpoints in Devpool-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -214,6 +214,58 @@
 								"login"
 							]
 						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02e43605-5ff0-4f37-8db0-b9f133839720",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", data.data.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@casparcoding.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/authentication/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"authentication",
+								"login"
+							]
+						},
 						"description": ""
 					},
 					"response": []
@@ -306,6 +358,727 @@
 							]
 						},
 						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Links",
+			"description": "",
+			"item": [
+				{
+					"name": "GET /developers/{id}/links",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/links",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"links"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /developers/{id}/links",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "gitlab",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "coenmooij",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/links",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"links"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /links/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "gitlab",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "coenmooij",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/links/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"links",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /links/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "value",
+									"value": "coenmooij2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/links/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"links",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /links/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "value",
+									"value": "coenmooij2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/links/14",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"links",
+								"14"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"description": "",
+			"item": [
+				{
+					"name": "GET /developers/{id}/comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/links",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"links"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /developers/{id}/comments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "backoffice",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "This is a comment about a developer",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/comments",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"comments"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /comments/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "backoffice",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "This is a comment about a developer2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/comments/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"comments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /comments/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "backoffice",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "This is a comment about a developer2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/comments/4",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"comments",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /comments/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api_url}}/comments/4",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"comments",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Technology",
+			"description": "",
+			"item": [
+				{
+					"name": "GET /developers/{id}/technologies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/technologies",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"technologies"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /developers/{id}/technologies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"technology_id_list\": [1,2,3]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/technologies",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"technologies"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /developers/{id}/technologies",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"technology_id_list\": [1,2,3]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/technologies",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"technologies"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Form",
+			"description": "",
+			"item": [
+				{
+					"name": "GET /forms/developers/latest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/forms/developers/latest",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"forms",
+								"developers",
+								"latest"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /forms/developers/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/forms/developers/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"forms",
+								"developers",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET /developers/{id}/forms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "coenmooij@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/forms",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"forms"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /developers/{id}/forms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"form_id\": 3,\n\t\"answers\": [\"Answer 1\", \"Answer 2\", \"Answer 3\"]\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1/forms",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1",
+								"forms"
+							]
+						},
+						"description": ""
 					},
 					"response": []
 				}
