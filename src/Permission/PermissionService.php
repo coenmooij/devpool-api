@@ -14,14 +14,6 @@ final class PermissionService
      */
     private $user;
 
-    public function __construct()
-    {
-        /**
-         * @var User
-         */
-        $this->user = Auth::user();
-    }
-
     public function ensureCanAccessDeveloper(int $id): void
     {
         if (!$this->canAccessDevelopers() && !$this->isDeveloper($id)) {
@@ -43,12 +35,12 @@ final class PermissionService
 
     public function isDeveloper(int $id): bool
     {
-        return $this->user->isDeveloper() && $this->isUser($id);
+        return $this->getUser()->isDeveloper() && $this->isUser($id);
     }
 
     public function ensureIsAdmin(): void
     {
-        if (!$this->user->isAdmin()) {
+        if (!$this->getUser()->isAdmin()) {
             throw new PermissionException();
         }
     }
@@ -62,18 +54,23 @@ final class PermissionService
 
     public function ensureIsAdminOrUser(int $userId): void
     {
-        if (!$this->user->isAdmin() && !$this->isUser($userId)) {
+        if (!$this->getUser()->isAdmin() && !$this->isUser($userId)) {
             throw new PermissionException();
         }
     }
 
     public function isUser(int $id): bool
     {
-        return $this->user->{User::ID} === $id;
+        return $this->getUser()->{User::ID} === $id;
     }
 
     public function isAdminOrBackofficeUser(): bool
     {
-        return $this->user->isAdmin() || $this->user->isBackofficeUser();
+        return $this->getUser()->isAdmin() || $this->getUser()->isBackofficeUser();
+    }
+
+    private function getUser(): User
+    {
+        return $this->user ?? $this->user = Auth::user();
     }
 }
