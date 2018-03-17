@@ -42,7 +42,7 @@ final class LinkService implements LinkServiceInterface
     public function getOne(int $linkId): Link
     {
         /** @var Link $link */
-        $link = Link::find($linkId);
+        $link = Link::findOrFail($linkId);
         $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
 
         return $link;
@@ -64,7 +64,7 @@ final class LinkService implements LinkServiceInterface
     public function update(int $linkId, string $value): Link
     {
         /** @var Link $link */
-        $link = Link::find($linkId);
+        $link = Link::findOrFail($linkId);
         $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
         $link->{Link::VALUE} = $value;
         $link->saveOrFail();
@@ -75,7 +75,7 @@ final class LinkService implements LinkServiceInterface
     public function delete(int $linkId): bool
     {
         /** @var Link $link */
-        $link = Link::find($linkId);
+        $link = Link::findOrFail($linkId);
         $this->permissionService->ensureCanAccessDeveloper($link->{Link::USER_ID});
 
         return $link->delete();

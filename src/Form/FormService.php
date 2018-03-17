@@ -42,7 +42,7 @@ final class FormService implements FormServiceInterface
                     $query->orderBy(Question::ORDER, self::ASCENDING);
                 }
             ]
-        )->find($id);
+        )->findOrFail($id);
     }
 
     /**
@@ -68,7 +68,7 @@ final class FormService implements FormServiceInterface
     {
         $this->permissionService->ensureCanAccessDeveloper($developerId);
         /** @var Form $form */
-        $form = Form::find($formId);
+        $form = Form::findOrFail($formId);
 
         /** @var Question[]|Collection $questions */
         $questions = $form->questions()->orderBy(Question::ORDER, self::ASCENDING)->get();
@@ -98,6 +98,6 @@ final class FormService implements FormServiceInterface
                     $query->where(Answer::DEVELOPER_ID, $developerId);
                 }
             ]
-        )->find($formId);
+        )->findOrFail($formId);
     }
 }
