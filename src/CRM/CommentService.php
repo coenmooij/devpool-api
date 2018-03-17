@@ -7,7 +7,7 @@ namespace CoenMooij\DevpoolApi\CRM;
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Permission\PermissionService;
 use CoenMooij\DevpoolApi\Profile\CommentType;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 final class CommentService implements CommentServiceInterface

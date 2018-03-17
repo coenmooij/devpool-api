@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\CRM;
 
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 interface CommentServiceInterface
 {
