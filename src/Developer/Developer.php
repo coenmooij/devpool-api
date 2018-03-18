@@ -61,18 +61,33 @@ final class Developer extends User
         );
     }
 
-    protected function getSeniorityAttribute($value): ?string
+    protected function getSeniorityAttribute(?int $value): ?string
     {
-        return $value ? Seniority::getName($value) : null;
+        return $value !== null ? Seniority::getName($value) : null;
     }
 
-    private function getSpeciality(): ?string
+    protected function getSpecialityAttribute(?int $value): ?string
     {
-        return $this->{self::SPECIALITY} ? Speciality::getName($this->{self::SPECIALITY}) : null;
+        return $value !== null ? Speciality::getName($value) : null;
     }
 
-    private function getPipelineStatus(): string
+    protected function getPipelineStatusAttribute(?int $value): ?string
     {
-        return PipelineStatus::getName($this->{self::PIPELINE_STATUS});
+        return $value !== null ? PipelineStatus::getName($value) : null;
+    }
+
+    protected function setSeniorityAttribute(?string $value): void
+    {
+        $this->attributes[self::SENIORITY] = $value ? Seniority::get($value) : null;
+    }
+
+    protected function setSpecialityAttribute(?string $value): void
+    {
+        $this->attributes[self::SPECIALITY] = $value ? Speciality::get($value) : null;
+    }
+
+    protected function setPipelineStatusAttribute(string $value): void
+    {
+        $this->attributes[self::PIPELINE_STATUS] = PipelineStatus::get($value);
     }
 }

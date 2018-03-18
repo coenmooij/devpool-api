@@ -82,17 +82,6 @@ final class DeveloperService implements DeveloperServiceInterface
         $developer = Developer::findOrFail($developerId);
 
         foreach ($data as $key => $value) {
-            switch ($key) {
-                case Developer::SENIORITY:
-                    $value = Seniority::get($value);
-                    break;
-                case Developer::SPECIALITY:
-                    $value = Speciality::get($value);
-                    break;
-                case Developer::PIPELINE_STATUS:
-                    $value = PipelineStatus::get($value);
-                    break;
-            }
             $developer->$key = $value;
         }
         $developer->saveOrFail();
