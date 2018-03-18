@@ -34,4 +34,12 @@ abstract class IntEnum
 
         return $allNames[$key];
     }
+
+    /**
+     * @return string[]
+     */
+    public static function getAllNames(): array
+    {
+        return array_keys(static::ALL);
+    }
 }

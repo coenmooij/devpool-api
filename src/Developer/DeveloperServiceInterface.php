@@ -16,5 +16,7 @@ interface DeveloperServiceInterface
 
     public function getOne(int $id): Developer;
 
+    public function update(int $id, array $data): Developer;
+
     public function createDeveloperFromUser(User $user): Developer;
 }
