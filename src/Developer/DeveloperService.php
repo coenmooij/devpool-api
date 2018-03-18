@@ -6,7 +6,10 @@ namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Permission\PermissionException;
-use CoenMooij\DevpoolApi\Permission\PermissionService;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
+use CoenMooij\DevpoolApi\Profile\PipelineStatus;
+use CoenMooij\DevpoolApi\Profile\Seniority;
+use CoenMooij\DevpoolApi\Profile\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 
 final class DeveloperService implements DeveloperServiceInterface
@@ -32,11 +35,11 @@ final class DeveloperService implements DeveloperServiceInterface
     private const ORDER_DESCENDING = 'desc';
 
     /**
-     * @var PermissionService
+     * @var PermissionServiceInterface
      */
     private $permissionService;
 
-    public function __construct(PermissionService $permissionService)
+    public function __construct(PermissionServiceInterface $permissionService)
     {
         $this->permissionService = $permissionService;
     }
@@ -56,7 +59,7 @@ final class DeveloperService implements DeveloperServiceInterface
         if ($this->permissionService->isDeveloper($id)) {
             return Developer::with(self::DEVELOPER_EXTRA_FIELDS)->findOrFail($id);
         }
-        if ($this->permissionService->canAccessDevelopers()) {
+        if ($this->permissionService->isAdminOrBackofficeUser()) {
             return Developer::with(self::BACKOFFICE_EXTRA_FIELDS)->findOrFail($id);
         }
         throw new PermissionException();
@@ -67,6 +70,31 @@ final class DeveloperService implements DeveloperServiceInterface
         $developer = new Developer();
         $developer->{Developer::ID} = $user->{User::ID};
 
+        $developer->saveOrFail();
+
+        return $developer;
+    }
+
+    public function update(int $developerId, array $data): Developer
+    {
+        $this->permissionService->ensureCanAccessDeveloper($developerId);
+
+        $developer = Developer::findOrFail($developerId);
+
+        foreach ($data as $key => $value) {
+            switch ($key) {
+                case Developer::SENIORITY:
+                    $value = Seniority::get($value);
+                    break;
+                case Developer::SPECIALITY:
+                    $value = Speciality::get($value);
+                    break;
+                case Developer::PIPELINE_STATUS:
+                    $value = PipelineStatus::get($value);
+                    break;
+            }
+            $developer->$key = $value;
+        }
         $developer->saveOrFail();
 
         return $developer;
