@@ -25,7 +25,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "random@casparcoding.com",
+									"value": "randomk@casparcoding.com",
 									"type": "text"
 								},
 								{
@@ -34,12 +34,12 @@
 									"type": "text"
 								},
 								{
-									"key": "firstName",
+									"key": "first_name",
 									"value": "New",
 									"type": "text"
 								},
 								{
-									"key": "lastName",
+									"key": "last_name",
 									"value": "User",
 									"type": "text"
 								}
@@ -269,6 +269,54 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Register As Developer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "new-ddeveloper@casparcoding.com",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "New",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Developer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/authentication/register-as-developer",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"authentication",
+								"register-as-developer"
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -358,6 +406,45 @@
 							]
 						},
 						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /developers/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "country",
+									"value": "Kenya",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/developers/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"developers",
+								"1"
+							]
+						},
+						"description": ""
 					},
 					"response": []
 				}
