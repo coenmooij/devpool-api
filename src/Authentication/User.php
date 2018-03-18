@@ -40,6 +40,11 @@ class User extends Model implements Authenticatable
         self::TOKEN,
     ];
 
+    protected $appends = [
+        self::DISPLAY_NAME,
+        self::FULL_NAME,
+    ];
+
     public function setTypeAttribute(string $value): void
     {
         $this->attributes[self::TYPE] = UserType::get($value);
@@ -90,7 +95,7 @@ class User extends Model implements Authenticatable
         return $type === $this->{User::TYPE};
     }
 
-    private function getFullNameAttribute(): string
+    public function getFullNameAttribute(): string
     {
         return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
     }
