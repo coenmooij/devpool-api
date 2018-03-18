@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\Profile;
 
-use CoenMooij\DevpoolApi\Permission\PermissionService;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 final class LinkService implements LinkServiceInterface
 {
     /**
-     * @var PermissionService
+     * @var PermissionServiceInterface
      */
     private $permissionService;
 
-    public function __construct(PermissionService $permissionService)
+    public function __construct(PermissionServiceInterface $permissionService)
     {
         $this->permissionService = $permissionService;
     }
