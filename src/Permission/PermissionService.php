@@ -7,7 +7,7 @@ namespace CoenMooij\DevpoolApi\Permission;
 use CoenMooij\DevpoolApi\Authentication\User;
 use Illuminate\Support\Facades\Auth;
 
-final class PermissionService
+final class PermissionService implements PermissionServiceInterface
 {
     /**
      * @var User $user

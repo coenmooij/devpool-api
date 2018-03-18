@@ -5,7 +5,7 @@ use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Authentication\UserType;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+final class UserSeeder extends Seeder
 {
     private const DEFAULT_PASSWORD = '123456';
     private const USERS = [
