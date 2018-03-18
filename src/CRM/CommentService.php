@@ -45,7 +45,7 @@ final class CommentService implements CommentServiceInterface
 
         $comment = new Comment();
         $comment->{Comment::USER_ID} = $developerId;
-        $comment->{Comment::AUTHOR_ID} = $this->getLoggedInUserId();
+        $comment->{Comment::AUTHOR_ID} = $this->permissionService->getLoggedInUserId();
         $comment->{Comment::TYPE} = CommentType::get($type);
         $comment->{Comment::MESSAGE} = $message;
         $comment->saveOrFail();
@@ -72,10 +72,5 @@ final class CommentService implements CommentServiceInterface
         $comment = Comment::findOrFail($commentId);
 
         return $comment->delete();
-    }
-
-    private function getLoggedInUserId(): int
-    {
-        return Auth::user()->{User::ID};
     }
 }

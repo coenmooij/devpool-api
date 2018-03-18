@@ -69,6 +69,11 @@ final class PermissionService implements PermissionServiceInterface
         return $this->getUser()->isAdmin() || $this->getUser()->isBackofficeUser();
     }
 
+    public function getLoggedInUserId(): int
+    {
+        return $this->getUser()->{User::ID};
+    }
+
     private function getUser(): User
     {
         return $this->user ?? $this->user = Auth::user();
