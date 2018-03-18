@@ -31,6 +31,11 @@ final class AuthenticationController extends AbstractController
         self::FIRST_NAME_KEY => 'required|max:255',
         self::LAST_NAME_KEY => 'required|max:255',
     ];
+    private const REGISTER_AS_VALIDATION_RULES = [
+        self::EMAIL_KEY => 'required|email|max:255',
+        self::FIRST_NAME_KEY => 'required|max:255',
+        self::LAST_NAME_KEY => 'required|max:255',
+    ];
     private const RESET_PASSWORD_VALIDATION_RULES = [
         self::EMAIL_KEY => 'required|email|max:255',
     ];
@@ -59,7 +64,24 @@ final class AuthenticationController extends AbstractController
 
         return self::createResponse(
             Response::HTTP_CREATED,
-            [['id' => $user->{User::ID}]],
+            ['user' => $user],
+            self::REGISTER_DEVELOPER_SUCCESS
+        );
+    }
+
+    public function registerAsDeveloper(Request $request): JsonResponse
+    {
+        $this->validate($request, self::REGISTER_AS_VALIDATION_RULES);
+
+        $user = $this->authenticationService->registerAsDeveloper(
+            $request->request->get(self::EMAIL_KEY),
+            $request->request->get(self::FIRST_NAME_KEY),
+            $request->request->get(self::LAST_NAME_KEY)
+        );
+
+        return self::createResponse(
+            Response::HTTP_CREATED,
+            ['user' => $user],
             self::REGISTER_DEVELOPER_SUCCESS
         );
     }

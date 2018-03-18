@@ -6,6 +6,7 @@ namespace CoenMooij\DevpoolApi\Authentication;
 
 use Carbon\Carbon;
 use CoenMooij\DevpoolApi\Developer\DeveloperServiceInterface;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -13,14 +14,22 @@ use Illuminate\Support\Facades\Mail;
 
 final class AuthenticationService implements AuthenticationServiceInterface
 {
+    private const GENERATED_PASSWORD_LENGTH = 23;
+
     /**
      * @var DeveloperServiceInterface
      */
     private $developerService;
 
-    public function __construct(DeveloperServiceInterface $developerService)
+    /**
+     * @var PermissionServiceInterface
+     */
+    private $permissionService;
+
+    public function __construct(DeveloperServiceInterface $developerService, PermissionServiceInterface $permissionService)
     {
         $this->developerService = $developerService;
+        $this->permissionService = $permissionService;
     }
 
     public function registerUser(
@@ -37,9 +46,25 @@ final class AuthenticationService implements AuthenticationServiceInterface
 
             try {
                 Mail::to($email)->send(new DeveloperRegistrationCompleteMailer($user));
-            } catch (Exception $e) {
-                Log::error($e->getMessage());
+            } catch (Exception $exception) {
+                Log::error($exception->getMessage());
             }
+        }
+
+        return $user;
+    }
+
+    public function registerAsDeveloper(string $email, string $firstName, string $lastName): User
+    {
+        $this->permissionService->ensureIsAdminOrBackofficeUser();
+        $password = $this->generatePassword();
+        $user = $this->register($email, $password, $firstName, $lastName, UserType::DEVELOPER);
+        $this->developerService->createDeveloperFromUser($user);
+
+        try {
+            Mail::to($email)->send(new DeveloperBackofficeRegistrationMailer($user, $password));
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
         }
 
         return $user;
@@ -73,6 +98,11 @@ final class AuthenticationService implements AuthenticationServiceInterface
     public function resetPassword(string $email): void
     {
         Log::info('Password reset attempt for ' . $email);
+    }
+
+    private function generatePassword(): string
+    {
+        return random_bytes(self::GENERATED_PASSWORD_LENGTH);
     }
 
     private function register(
