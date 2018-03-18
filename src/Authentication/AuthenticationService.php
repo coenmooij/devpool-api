@@ -118,7 +118,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::PASSWORD} = $this->hashPassword($password, $user->{User::SALT});
         $user->{User::FIRST_NAME} = $firstName;
         $user->{User::LAST_NAME} = $lastName;
-        $user->{User::TYPE} = UserType::get($userType);
+        $user->{User::TYPE} = $userType;
         $user->saveOrFail();
 
         return $user;

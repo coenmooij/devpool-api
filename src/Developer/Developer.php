@@ -25,6 +25,8 @@ final class Developer extends User
     public const PRIORITY = 'priority';
     public const SALARY = 'salary';
 
+    protected $casts = [self::PRIORITY => 'boolean', self::SHOW_NICKNAME => 'boolean'];
+
     private const HIDDEN = [
         'pivot',
     ];
@@ -39,17 +41,6 @@ final class Developer extends User
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class);
-    }
-
-    public function toArray(): array
-    {
-        $data = parent::toArray();
-
-        $data[self::SENIORITY] = $this->getSeniority();
-        $data[self::SPECIALITY] = $this->getSpeciality();
-        $data[self::PIPELINE_STATUS] = $this->getPipelineStatus();
-
-        return $data;
     }
 
     /**
@@ -70,9 +61,9 @@ final class Developer extends User
         );
     }
 
-    private function getSeniority(): ?string
+    protected function getSeniorityAttribute($value): ?string
     {
-        return $this->{self::SENIORITY} ? Seniority::getName($this->{self::SENIORITY}) : null;
+        return $value ? Seniority::getName($value) : null;
     }
 
     private function getSpeciality(): ?string

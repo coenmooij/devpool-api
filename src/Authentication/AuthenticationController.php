@@ -96,7 +96,7 @@ final class AuthenticationController extends AbstractController
 
         return self::createResponse(
             Response::HTTP_CREATED,
-            ['token' => $user->{User::TOKEN}, 'type' => $user->getType()],
+            ['token' => $user->{User::TOKEN}, 'type' => $user->{User::TYPE}],
             self::LOGIN_SUCCESS
         );
     }

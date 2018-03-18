@@ -40,24 +40,19 @@ class User extends Model implements Authenticatable
         self::TOKEN,
     ];
 
-    public function toArray(): array
+    public function setTypeAttribute(string $value): void
     {
-        $array = parent::toArray();
-        $array[self::TYPE] = $this->getType();
-        $array[self::DISPLAY_NAME] = $this->getDisplayName();
-        $array[self::FULL_NAME] = $this->getFullName();
-
-        return $array;
+        $this->attributes[self::TYPE] = UserType::get($value);
     }
 
-    public function getType(): string
+    public function getTypeAttribute($value): string
     {
-        return UserType::getName($this->{self::TYPE});
+        return UserType::getName($value);
     }
 
-    public function getDisplayName(): string
+    public function getDisplayNameAttribute(): string
     {
-        return $this->{self::SHOW_NICKNAME} ? $this->{self::NICKNAME} : $this->getFullName();
+        return $this->{self::SHOW_NICKNAME} ? $this->{self::NICKNAME} : $this->getFullNameAttribute();
     }
 
     public function links(): HasMany
@@ -92,10 +87,10 @@ class User extends Model implements Authenticatable
 
     public function isType(string $type): bool
     {
-        return UserType::get($type) === $this->{User::TYPE};
+        return $type === $this->{User::TYPE};
     }
 
-    private function getFullName(): string
+    private function getFullNameAttribute(): string
     {
         return $this->{self::FIRST_NAME} . ' ' . $this->{self::LAST_NAME};
     }
