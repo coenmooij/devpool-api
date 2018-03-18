@@ -6,7 +6,15 @@ namespace CoenMooij\DevpoolApi\Authentication;
 
 interface AuthenticationServiceInterface
 {
-    public function registerUser(string $email, string $password, string $firstName, string $lastName, string $userType): User;
+    public function registerUser(
+        string $email,
+        string $password,
+        string $firstName,
+        string $lastName,
+        string $userType
+    ): User;
+
+    public function registerAsDeveloper(string $email, string $firstName, string $lastName): User;
 
     public function login(string $email, string $password): User;
 
