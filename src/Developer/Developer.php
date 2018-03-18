@@ -6,6 +6,9 @@ namespace CoenMooij\DevpoolApi\Developer;
 
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Form\Answer;
+use CoenMooij\DevpoolApi\Profile\PipelineStatus;
+use CoenMooij\DevpoolApi\Profile\Seniority;
+use CoenMooij\DevpoolApi\Profile\Speciality;
 use CoenMooij\DevpoolApi\Technology\Technology;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 final class Developer extends User
 {
     public const ID = 'id';
-    public const SPECIALITY = 'role';
+    public const SPECIALITY = 'speciality';
     public const SENIORITY = 'seniority';
     public const PIPELINE_STATUS = 'pipeline_status';
     public const COUNTRY = 'country';
@@ -40,7 +43,13 @@ final class Developer extends User
 
     public function toArray(): array
     {
-        return parent::toArray();
+        $data = parent::toArray();
+
+        $data[self::SENIORITY] = $this->getSeniority();
+        $data[self::SPECIALITY] = $this->getSpeciality();
+        $data[self::PIPELINE_STATUS] = $this->getPipelineStatus();
+
+        return $data;
     }
 
     /**
@@ -59,5 +68,20 @@ final class Developer extends User
                 return $query->join('users', 'developers.id', '=', 'users.id');
             }
         );
+    }
+
+    private function getSeniority(): ?string
+    {
+        return $this->{self::SENIORITY} ? Seniority::getName($this->{self::SENIORITY}) : null;
+    }
+
+    private function getSpeciality(): ?string
+    {
+        return $this->{self::SPECIALITY} ? Speciality::getName($this->{self::SPECIALITY}) : null;
+    }
+
+    private function getPipelineStatus(): string
+    {
+        return PipelineStatus::getName($this->{self::PIPELINE_STATUS});
     }
 }

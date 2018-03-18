@@ -14,9 +14,10 @@ final class CreateDevelopersTable extends Migration
             'developers',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('speciality')->nullable();
-                $table->string('seniority')->nullable();
+                $table->integer('speciality')->unsigned()->nullable();
+                $table->integer('seniority')->unsigned()->nullable();
                 $table->integer('pipeline_status')->unsigned()->default(0);
+                $table->string('salary')->nullable();
                 $table->string('country')->nullable();
                 $table->string('phone')->nullable();
                 $table->date('birth_date')->nullable();
