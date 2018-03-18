@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace CoenMooij\DevpoolApi\Form;
 
-use CoenMooij\DevpoolApi\Permission\PermissionService;
-use Doctrine\DBAL\Query\QueryBuilder;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -16,11 +14,11 @@ final class FormService implements FormServiceInterface
     private const ASCENDING = 'asc';
 
     /**
-     * @var PermissionService
+     * @var PermissionServiceInterface
      */
     private $permissionService;
 
-    public function __construct(PermissionService $permissionService)
+    public function __construct(PermissionServiceInterface $permissionService)
     {
         $this->permissionService = $permissionService;
     }

@@ -12,6 +12,8 @@ use CoenMooij\DevpoolApi\Developer\DeveloperService;
 use CoenMooij\DevpoolApi\Developer\DeveloperServiceInterface;
 use CoenMooij\DevpoolApi\Form\FormService;
 use CoenMooij\DevpoolApi\Form\FormServiceInterface;
+use CoenMooij\DevpoolApi\Permission\PermissionService;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
 use CoenMooij\DevpoolApi\Profile\LinkService;
 use CoenMooij\DevpoolApi\Profile\LinkServiceInterface;
 use CoenMooij\DevpoolApi\Technology\TechnologyService;
@@ -28,5 +30,6 @@ final class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(CommentServiceInterface::class, CommentService::class);
         $this->app->bind(TechnologyServiceInterface::class, TechnologyService::class);
         $this->app->bind(FormServiceInterface::class, FormService::class);
+        $this->app->bind(PermissionServiceInterface::class, PermissionService::class);
     }
 }

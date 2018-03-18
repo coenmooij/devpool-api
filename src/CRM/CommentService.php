@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\CRM;
 
 use CoenMooij\DevpoolApi\Authentication\User;
-use CoenMooij\DevpoolApi\Permission\PermissionService;
+use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
 use CoenMooij\DevpoolApi\Profile\CommentType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Auth;
 final class CommentService implements CommentServiceInterface
 {
     /**
-     * @var PermissionService
+     * @var PermissionServiceInterface
      */
     private $permissionService;
 
-    public function __construct(PermissionService $permissionService)
+    public function __construct(PermissionServiceInterface $permissionService)
     {
         $this->permissionService = $permissionService;
     }
