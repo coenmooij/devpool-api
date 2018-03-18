@@ -18,7 +18,7 @@ use CoenMooij\DevpoolApi\Technology\TechnologyService;
 use CoenMooij\DevpoolApi\Technology\TechnologyServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
-class DependencyInjectionServiceProvider extends ServiceProvider
+final class DependencyInjectionServiceProvider extends ServiceProvider
 {
     public function register(): void
     {

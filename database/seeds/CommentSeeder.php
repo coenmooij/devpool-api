@@ -4,7 +4,7 @@ use CoenMooij\DevpoolApi\CRM\Comment;
 use CoenMooij\DevpoolApi\Profile\CommentType;
 use Illuminate\Database\Seeder;
 
-class CommentSeeder extends Seeder
+final class CommentSeeder extends Seeder
 {
     private const COMMENTS = [
         [1, 8, CommentType::TECHNICAL, 'Smart guy, knows a lot of stuff about programming'],

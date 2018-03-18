@@ -8,7 +8,7 @@ use CoenMooij\DevpoolApi\Profile\Link;
 use CoenMooij\DevpoolApi\Profile\LinkType;
 use Illuminate\Database\Seeder;
 
-class DeveloperSeeder extends Seeder
+final class DeveloperSeeder extends Seeder
 {
     private const DEFAULT_PASSWORD = '123456';
     private const DEVELOPERS = [

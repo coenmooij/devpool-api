@@ -5,7 +5,7 @@ use CoenMooij\DevpoolApi\Form\Form;
 use CoenMooij\DevpoolApi\Form\Question;
 use Illuminate\Database\Seeder;
 
-class FormSeeder extends Seeder
+final class FormSeeder extends Seeder
 {
     const QUESTIONS_ANSWERS = [
         'When did you start programming' => 'When I was 12 in school',
