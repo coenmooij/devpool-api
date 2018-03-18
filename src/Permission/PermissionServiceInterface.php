@@ -23,4 +23,6 @@ interface PermissionServiceInterface
     public function isUser(int $id): bool;
 
     public function isAdminOrBackofficeUser(): bool;
+
+    public function getLoggedInUserId(): int;
 }
