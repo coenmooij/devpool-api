@@ -1,6 +1,6 @@
 Hi {{ $name }}, Welcome to Caspar Coding Developers.
 <br><br>
-An account has been created for you. You can now login at http://casparcodingdevelopers.com with these credentials:
+An account has been created for you. You can now login at https://www.casparcodingdevelopers.com with these credentials:
 <br><br>
 Email: {{ $email }}
 <br>
