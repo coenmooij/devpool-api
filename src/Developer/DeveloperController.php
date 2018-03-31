@@ -76,9 +76,9 @@ final class DeveloperController extends AbstractController
         $this->validate(
             $request,
             [
-                self::SPECIALITY_KEY => [Rule::in(array_keys(Speciality::getAllNames()))],
-                self::SENIORITY_KEY => [Rule::in(array_keys(Seniority::getAllNames()))],
-                self::PIPELINE_STATUS_KEY => [Rule::in(array_keys(PipelineStatus::getAllNames()))],
+                self::SPECIALITY_KEY => [Rule::in(Speciality::getAllNames())],
+                self::SENIORITY_KEY => [Rule::in(Seniority::getAllNames())],
+                self::PIPELINE_STATUS_KEY => [Rule::in(PipelineStatus::getAllNames())],
             ]
         );
         $updateFields = array_filter(
