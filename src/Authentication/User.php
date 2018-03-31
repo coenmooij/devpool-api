@@ -29,6 +29,7 @@ class User extends Model implements Authenticatable
     public const NAME_KEY = 'name';
 
     public const DEFAULT_TYPE = UserType::DEVELOPER;
+    private const DESCENDING = 'desc';
 
     protected $guarded = [
         self::ID,
@@ -67,7 +68,7 @@ class User extends Model implements Authenticatable
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class, 'user_id');
+        return $this->hasMany(Comment::class, 'user_id')->orderBy(Comment::CREATED_AT, self::DESCENDING);
     }
 
     public function isBackofficeUser(): bool

@@ -8,9 +8,9 @@ use Illuminate\Database\Seeder;
 final class FormSeeder extends Seeder
 {
     const QUESTIONS_ANSWERS = [
-        'When did you start programming' => 'When I was 12 in school',
-        'What do you like about programming' => 'I like that you can build stuff',
-        'Why are you a good programmer' => 'I have a lot of experience',
+        'When did you start programming?' => 'When I was 12 in school',
+        'What do you like about programming?' => 'I like that you can build stuff',
+        'Why are you a good programmer?' => 'I have a lot of experience',
     ];
     const DEVELOPER_ID = 1;
 

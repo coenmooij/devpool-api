@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CoenMooij\DevpoolApi\CRM;
 
 use CoenMooij\DevpoolApi\Authentication\User;
+use CoenMooij\DevpoolApi\Profile\CommentType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -17,7 +18,6 @@ final class Comment extends Model
     public const AUTHOR_ID = 'author_id';
 
     protected $hidden = [
-        self::ID,
         self::USER_ID,
         self::AUTHOR_ID,
         'updated_at',
@@ -31,5 +31,15 @@ final class Comment extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function setTypeAttribute(string $value): void
+    {
+        $this->attributes[self::TYPE] = $value ? CommentType::get($value) : null;
+    }
+
+    public function getTypeAttribute(?int $value): ?string
+    {
+        return $value !== null ? CommentType::getName($value) : null;
     }
 }

@@ -22,6 +22,7 @@ final class DeveloperService implements DeveloperServiceInterface
         'answers.question.form',
         'comments',
         'comments.author',
+        'comments.author.links',
     ];
 
     private const DEVELOPER_EXTRA_FIELDS = [

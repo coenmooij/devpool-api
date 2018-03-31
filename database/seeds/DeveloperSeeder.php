@@ -43,9 +43,6 @@ final class DeveloperSeeder extends Seeder
             [Link::TYPE => LinkType::TWITTER, Link::VALUE => 'coenmooij'],
             [Link::TYPE => LinkType::INSTAGRAM, Link::VALUE => 'coenmooij'],
         ],
-        4 => [
-            [Link::TYPE => LinkType::AVATAR, Link::VALUE => 'https://static1.squarespace.com/static/5a243755a8b2b03bb2dbdce0/t/5a8e9229ec212d49de3d84f0/1519293045638/IMG_0323+_k.png?format=500w'],
-        ],
     ];
 
     /**
