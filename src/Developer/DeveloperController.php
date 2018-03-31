@@ -25,7 +25,8 @@ final class DeveloperController extends AbstractController
     private const COUNTRY_KEY = 'country';
     private const PHONE_KEY = 'phone';
     private const BIRTH_DATE_KEY = 'birth_date';
-    private const SALARY_KEY = 'birth_date';
+    private const SALARY_KEY = 'salary';
+    private const PRIORITY_KEY = 'priority';
 
     private const UPDATE_RULES = [
         self::SPECIALITY_KEY => 'max:255',
@@ -35,6 +36,7 @@ final class DeveloperController extends AbstractController
         self::PHONE_KEY => 'max:255',
         self::BIRTH_DATE_KEY => 'date',
         self::SALARY_KEY => 'max:255',
+        self::PRIORITY_KEY => 'boolean'
     ];
 
     /**

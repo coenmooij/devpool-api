@@ -7,9 +7,6 @@ namespace CoenMooij\DevpoolApi\Developer;
 use CoenMooij\DevpoolApi\Authentication\User;
 use CoenMooij\DevpoolApi\Permission\PermissionException;
 use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
-use CoenMooij\DevpoolApi\Profile\PipelineStatus;
-use CoenMooij\DevpoolApi\Profile\Seniority;
-use CoenMooij\DevpoolApi\Profile\Speciality;
 use Illuminate\Database\Eloquent\Collection;
 
 final class DeveloperService implements DeveloperServiceInterface
