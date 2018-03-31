@@ -20,5 +20,7 @@ interface AuthenticationServiceInterface
 
     public function logout(string $token): void;
 
+    public function update(int $id, array $data): User;
+
     public function resetPassword(string $email): void;
 }

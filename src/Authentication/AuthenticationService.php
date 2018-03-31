@@ -26,8 +26,10 @@ final class AuthenticationService implements AuthenticationServiceInterface
      */
     private $permissionService;
 
-    public function __construct(DeveloperServiceInterface $developerService, PermissionServiceInterface $permissionService)
-    {
+    public function __construct(
+        DeveloperServiceInterface $developerService,
+        PermissionServiceInterface $permissionService
+    ) {
         $this->developerService = $developerService;
         $this->permissionService = $permissionService;
     }
@@ -93,6 +95,19 @@ final class AuthenticationService implements AuthenticationServiceInterface
         $user->{User::TOKEN} = null;
         $user->{User::TOKEN_EXPIRES} = null;
         $user->saveOrFail();
+    }
+
+    public function update(int $id, array $data): User
+    {
+        $this->permissionService->ensureCanAccessDeveloper($id);
+
+        $user = User::findOrFail($id);
+        foreach ($data as $key => $value) {
+            $user->$key = $value;
+        }
+        $user->saveOrFail();
+
+        return $user;
     }
 
     public function resetPassword(string $email): void

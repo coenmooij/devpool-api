@@ -9,6 +9,7 @@ Route::prefix('authentication')->namespace('CoenMooij\DevpoolApi\Authentication'
         Route::post('/register-as-developer', 'AuthenticationController@registerAsDeveloper')->middleware('auth');
         Route::post('/resetPassword', 'AuthenticationController@resetPassword');
         Route::get('/logout', 'AuthenticationController@logout')->middleware('auth');
+        Route::patch('/users/{id}', 'AuthenticationController@update')->middleware('auth');
     }
 );
 
