@@ -32,7 +32,7 @@ final class CommentService implements CommentServiceInterface
         $this->permissionService->ensureIsAdminOrBackofficeUser();
 
         return Comment::where(Comment::USER_ID, $developerId)
-            ->with(['author'])
+            ->with(['author', 'author.links'])
             ->orderBy(Comment::CREATED_AT, self::DESCENDING)
             ->get();
     }
