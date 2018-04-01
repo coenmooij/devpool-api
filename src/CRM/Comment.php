@@ -13,7 +13,6 @@ final class Comment extends Model
 {
     public const ID = 'id';
     public const MESSAGE = 'message';
-    public const TYPE = 'type';
     public const USER_ID = 'user_id';
     public const AUTHOR_ID = 'author_id';
 
@@ -31,15 +30,5 @@ final class Comment extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
-    }
-
-    public function setTypeAttribute(string $value): void
-    {
-        $this->attributes[self::TYPE] = $value ? CommentType::get($value) : null;
-    }
-
-    public function getTypeAttribute(?int $value): ?string
-    {
-        return $value !== null ? CommentType::getName($value) : null;
     }
 }

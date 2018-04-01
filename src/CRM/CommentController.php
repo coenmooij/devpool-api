@@ -13,12 +13,10 @@ final class CommentController extends AbstractController
 {
     private const COMMENTS_KEY = 'comments';
     private const COMMENT_KEY = 'comment';
-    private const TYPE_KEY = 'type';
     private const MESSAGE_KEY = 'message';
     private const MESSAGE_COMMENT_DELETED = 'Comment successfully deleted';
 
     private const CREATE_RULES = [
-        self::TYPE_KEY => 'required|max:255',
         self::MESSAGE_KEY => 'required|max:255',
     ];
     private const UPDATE_RULES = [
@@ -52,11 +50,7 @@ final class CommentController extends AbstractController
     public function create(Request $request, int $id): JsonResponse
     {
         $this->validate($request, self::CREATE_RULES);
-        $comment = $this->commentService->create(
-            $id,
-            $request->request->get(self::TYPE_KEY),
-            $request->request->get(self::MESSAGE_KEY)
-        );
+        $comment = $this->commentService->create($id, $request->request->get(self::MESSAGE_KEY));
 
         return self::createResponse(Response::HTTP_CREATED, [self::COMMENT_KEY => $comment]);
     }

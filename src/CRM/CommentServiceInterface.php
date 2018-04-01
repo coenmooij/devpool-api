@@ -15,7 +15,7 @@ interface CommentServiceInterface
 
     public function getOne(int $commentId): Comment;
 
-    public function create(int $developerId, string $type, string $message): Comment;
+    public function create(int $developerId, string $message): Comment;
 
     public function update(int $commentId, string $message): Comment;
 

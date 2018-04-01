@@ -735,12 +735,6 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "type",
-									"value": "backoffice",
-									"description": "",
-									"type": "text"
-								},
-								{
 									"key": "message",
 									"value": "This is a comment about a developer",
 									"description": "",
@@ -779,20 +773,7 @@
 						],
 						"body": {
 							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "type",
-									"value": "backoffice",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "message",
-									"value": "This is a comment about a developer2",
-									"description": "",
-									"type": "text"
-								}
-							]
+							"urlencoded": []
 						},
 						"url": {
 							"raw": "{{api_url}}/comments/1",
@@ -825,12 +806,6 @@
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
-								{
-									"key": "type",
-									"value": "backoffice",
-									"description": "",
-									"type": "text"
-								},
 								{
 									"key": "message",
 									"value": "This is a comment about a developer2",

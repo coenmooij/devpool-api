@@ -39,14 +39,13 @@ final class CommentService implements CommentServiceInterface
         return Comment::with(['author'])->findOrFail($commentId);
     }
 
-    public function create(int $developerId, string $type, string $message): Comment
+    public function create(int $developerId, string $message): Comment
     {
         $this->permissionService->ensureIsAdminOrBackofficeUser();
 
         $comment = new Comment();
         $comment->{Comment::USER_ID} = $developerId;
         $comment->{Comment::AUTHOR_ID} = $this->permissionService->getLoggedInUserId();
-        $comment->{Comment::TYPE} = CommentType::get($type);
         $comment->{Comment::MESSAGE} = $message;
         $comment->saveOrFail();
 
