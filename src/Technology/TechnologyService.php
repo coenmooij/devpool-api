@@ -6,10 +6,13 @@ namespace CoenMooij\DevpoolApi\Technology;
 
 use CoenMooij\DevpoolApi\Developer\Developer;
 use CoenMooij\DevpoolApi\Permission\PermissionServiceInterface;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 final class TechnologyService implements TechnologyServiceInterface
 {
+    private const ATTACHING_TECHNOLOGIES_ERROR = 'Something went wrong attaching technologies to a developer';
     /**
      * @var PermissionServiceInterface
      */
@@ -50,7 +53,11 @@ final class TechnologyService implements TechnologyServiceInterface
 
         /** @var Developer $developer */
         $developer = Developer::findOrFail($developerId);
-        $developer->technologies()->attach($technologyIdList);
+        try {
+            $developer->technologies()->attach($technologyIdList);
+        } catch (Exception $exception) {
+            Log::warning(self::ATTACHING_TECHNOLOGIES_ERROR);
+        }
 
         return $developer->technologies()->get();
     }
