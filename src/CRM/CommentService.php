@@ -41,7 +41,7 @@ final class CommentService implements CommentServiceInterface
     {
         $this->permissionService->ensureIsAdminOrBackofficeUser();
 
-        return Comment::with(['author'])->findOrFail($commentId);
+        return Comment::with(['author', 'author.links'])->findOrFail($commentId);
     }
 
     public function create(int $developerId, string $message): Comment
