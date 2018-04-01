@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 final class CommentService implements CommentServiceInterface
 {
+    private const DESCENDING = 'desc';
+
     /**
      * @var PermissionServiceInterface
      */
@@ -29,7 +31,10 @@ final class CommentService implements CommentServiceInterface
     {
         $this->permissionService->ensureIsAdminOrBackofficeUser();
 
-        return Comment::where(Comment::USER_ID, $developerId)->with(['author'])->get();
+        return Comment::where(Comment::USER_ID, $developerId)
+            ->with(['author'])
+            ->orderBy(Comment::CREATED_AT, self::DESCENDING)
+            ->get();
     }
 
     public function getOne(int $commentId): Comment
