@@ -11,15 +11,20 @@ interface TechnologyServiceInterface
     /**
      * @return Technology[]|Collection
      */
+    public function getAll(): Collection;
+
+    /**
+     * @return Technology[]|Collection
+     */
     public function getByDeveloper(int $developerId): Collection;
 
     /**
      * @return Technology[]|Collection
      */
-    public function addToDeveloper(int$developerId, int ...$technologyIdList): Collection;
+    public function addToDeveloper(int $developerId, int ...$technologyIdList): Collection;
 
     /**
      * @return Technology[]|Collection
      */
-    public function removeFromDeveloper(int$developerId, int ...$technologyIdList): Collection;
+    public function removeFromDeveloper(int $developerId, int ...$technologyIdList): Collection;
 }

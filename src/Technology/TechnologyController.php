@@ -27,6 +27,13 @@ final class TechnologyController extends AbstractController
         $this->technologyService = $technologyService;
     }
 
+    public function getAll(): JsonResponse
+    {
+        $technologies = $this->technologyService->getAll();
+
+        return self::createResponse(Response::HTTP_OK, [self::TECHNOLOGIES_KEY => $technologies]);
+    }
+
     public function getByDeveloper(int $id): JsonResponse
     {
         $technologies = $this->technologyService->getByDeveloper($id);

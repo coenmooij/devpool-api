@@ -42,6 +42,7 @@ Route::middleware('auth')->group(
         );
         Route::namespace('CoenMooij\DevpoolApi\Technology')->group(
             function () {
+                Route::get('/technologies', 'TechnologyController@getAll');
                 Route::get('/developers/{id}/technologies', 'TechnologyController@getByDeveloper');
                 Route::post('/developers/{id}/technologies', 'TechnologyController@addToDeveloper');
                 Route::delete('/developers/{id}/technologies', 'TechnologyController@removeFromDeveloper');

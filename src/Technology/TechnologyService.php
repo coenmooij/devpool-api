@@ -23,6 +23,14 @@ final class TechnologyService implements TechnologyServiceInterface
     /**
      * @return Technology[]|Collection
      */
+    public function getAll(): Collection
+    {
+        return Technology::all();
+    }
+
+    /**
+     * @return Technology[]|Collection
+     */
     public function getByDeveloper(int $developerId): Collection
     {
         $this->permissionService->ensureCanAccessDeveloper($developerId);
