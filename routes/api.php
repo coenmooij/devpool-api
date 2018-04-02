@@ -50,6 +50,7 @@ Route::middleware('auth')->group(
         );
         Route::namespace('CoenMooij\DevpoolApi\Form')->group(
             function () {
+                Route::get('/forms/developers', 'FormController@getAllDeveloperForms');
                 Route::get('/forms/developers/latest', 'FormController@getLatestDeveloperForm');
                 Route::get('/forms/developers/{id}', 'FormController@getDeveloperForm');
                 Route::get('/developers/{id}/forms', 'FormController@getByDeveloper');

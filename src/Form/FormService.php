@@ -23,6 +23,14 @@ final class FormService implements FormServiceInterface
         $this->permissionService = $permissionService;
     }
 
+    /**
+     * @return Form[]|Collection
+     */
+    public function getAllDeveloperForms(): Collection
+    {
+       return Form::all();
+    }
+
     public function getLatestDeveloperForm(): Form
     {
         return Form::with(

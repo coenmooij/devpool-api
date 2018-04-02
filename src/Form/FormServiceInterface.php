@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface FormServiceInterface
 {
+    /**
+     * @return Form[]|Collection
+     */
+    public function getAllDeveloperForms(): Collection;
+
     public function getLatestDeveloperForm(): Form;
 
     public function getDeveloperForm(int $formId): Form;

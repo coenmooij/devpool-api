@@ -32,6 +32,13 @@ final class FormController extends AbstractController
         $this->formService = $formService;
     }
 
+    public function getAllDeveloperForms(): JsonResponse
+    {
+        $forms = $this->formService->getAllDeveloperForms();
+
+        return self::createResponse(Response::HTTP_OK, [self::FORMS_KEY => $forms]);
+    }
+
     public function getLatestDeveloperForm(): JsonResponse
     {
         $form = $this->formService->getLatestDeveloperForm();
